@@ -5,8 +5,11 @@
 </p>
 
 # Objetivo
-  Desarollar diferentes calculadoras para usarlas en determinaciones de higiene en el ambiente laboral
+  Desarrollar diferentes calculadoras para usarlas en determinaciones de higiene en el ambiente laboral
 
 
 # Descripción del Proyecto
   Esta aplicación utiliza para su funcionamiento codigo en HTML, CSS y JavaScript con un diseño intuitivo y atractivo.
+
+# Desarrollador
+  Ingeniero Jorge Mendoza
