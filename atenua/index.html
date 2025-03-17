@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atenuación de protectores auditivos</title>
+    <link rel="stylesheet" href="/estilos/colores.css">
+    <link rel="stylesheet" href="/estilos/general.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./estilos/informacion.css">
+    <script defer src="/scripts/script.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EEXJXBJBQB"></script>
+	<script>
+  	    window.dataLayer = window.dataLayer || [];
+  	    function gtag(){dataLayer.push(arguments);}
+  	    gtag('js', new Date());
+  	    gtag('config', 'G-EEXJXBJBQB');
+	</script>
+</head>
+<body>
+     
+    <!-- Encabezado con Menú -->
+    <header>
+        <a href="/index.html">
+            <img src="/img/Logo_Visp.png" class="logo" alt="Logo VISP">
+          
+        </a>
+        <h1>PROTECTORES AUDITIVOS</h1>
+        <nav>
+            <ul class="menu">
+
+                <li><a href="index.html" class="active">Información</a></li>
+                <li><a href="bandasoctava.html">Bandas de octava</a></li>
+                <li><a href="hml.html">HML</a></li>
+                <li><a href="snr.html">SNR</a></li>
+            </ul>
+            <div class="menu-hamburguesa" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </nav>
+    </header>   
+    <h2 class="section-title">INFORMACIÓN</h2>
+    <main class="contenedor-principal">
+        <p class="titulo-info">Esta aplicación web proporciona calculadoras para tres métodos
+            diferentes de estimación del rendimiento de la protección auditiva:
+        </p>
+
+        <div class="contenedor-columnas">
+            <div class="columna">
+                <section class="seccion1">
+                    <p><a class="hiper" href="bandasoctava.html">Método de la banda de octava</a></p>
+                    <p class="info">Se utiliza si se conocen los niveles de ruido en las bandas de frecuencia.</p>
+                    <p><a class="hiper" href="hml.html">Método HML</a></p>
+                    <p class="info">Se utiliza si se conocen los niveles de ruido ponderados A y C</p>
+                    <p><a class="hiper" href="snr.html">Método SNR</a></p>
+                    <p class="info">Se utiliza si se conocen los niveles de ruido ponderados C</p>
+
+                    <table class="tabla-db">
+                        <colgroup>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>Nivel de Ruido<br>dB(A)</th>
+                                <th>Seleccione protector<br>con un SNR de …</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>85-90</td>
+                                <td>20 o menos</td>
+                            </tr>
+                            <tr>
+                                <td>90-95</td>
+                                <td>20-30</td>
+                            </tr>
+                            <tr>
+                                <td>95-100</td>
+                                <td>25-35</td>
+                            </tr>
+                            <tr>
+                                <td>100-105</td>
+                                <td>30 o más</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p class="info">La tabla de arriba indica el factor de protección más adecuado
+                        para diferentes niveles de ruido. Se basa en el valor del número
+                        único (SNR) provisto a cada dispositivo de protección
+                        auditiva.<br />
+                        Esta tabla pretende ser una guía y no sustituye la
+                        utilización de uno de los tres métodos indicados en esta hoja de
+                        cálculo. En particular, la tabla no será adecuada si el ruido es
+                        principalmente de baja frecuencia (por ejemplo, en talleres de
+                        prensado, generadores y bancos de prueba de generadores, salas de
+                        instalaciones, salas de calderas, mesas de agitación de hormigón,
+                        prensas de moldeo y prensas de perforación).
+                    </p>
+                     <p>Fuente: <cite><a href="https://www.hse.gov.uk/noise/calculator.htm" target="_blank">The Health and Safety Executive (HSE).</a></cite></p>
+                     <br>
+                     <p>Nota: <cite>Descargar las plantillas de este calculador para personalizar <a href="https://higseg.ar/files/download.php?id=3&token=5f74e286381636d412881cc2bbc826b2" target="_blank"> aquí</a></cite></p>
+            </div>
+            <div class="columna">
+                <section class="seccion3">
+                    <table class="tabla-indice">
+                        <tr>
+                            <th class= "tabla-indice-titulo" colspan="2">Índice de protección</th>
+                          </tr>
+                        <tr>
+                            <td>SOBREPROGEDIDO</td>
+                            <td>Si el nivel de ruido en el oído con la protección auditiva colocada es
+                                inferior a 70 dB(A), se reduce la capacidad de oír las advertencias y la
+                                inteligibilidad del habla. El usuario está sobreprotegido. Es posible que no
+                                perciba las alarmas y otras señales de seguridad importantes; se sentirá aislado
+                                y puede optar por no llevar la protección, o por llevarla de forma incorrecta.</td>
+                        </tr>
+                        <tr>
+                            <td>BUENO</td>
+                            <td>Su selección de protección auditiva es buena cuando reduce el nivel de ruido
+                                en el oído a entre 70 y 80 dB(A).</td>
+                        </tr>
+                        <tr>
+                            <td>ACEPTABLE</td>
+                            <td>La protección auditiva que reduce el nivel de ruido en el oído a menos de 85 dB(A) es
+                                aceptable si: <br />
+                                - el lugar de trabajo es especialmente ruidoso y se ha hecho todo lo razonablemente
+                                posible para reducir ese ruido y <br />
+                                - no se puede obtener una protección auditiva adecuada que proporcione una mayor
+                                reducción del ruido.</td>
+                        </tr>
+                        <tr>
+                            <td>INSUFICIENTE</td>
+                            <td>Si el nivel de ruido en el oído es superior a 85 dB(A), el trabajador no está
+                                protegido.
+                                El riesgo de sufrir daños auditivos aumenta a medida que aumenta el nivel de ruido
+                                en el oído.</td>
+                        </tr>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </main>
+     <!-- Pie de página -->
+     <footer>
+        <div class="footer-container">
+            <div class="footer-column footer-left">
+              <a href="https://isp65-sfe.infd.edu.ar/sitio/" target="_blank">
+                <img src="/img/logoISP65.png" class="logo" alt="Logo ISP 65">
+              </a>
+            </div>
+        
+            <div class="footer-column footer-center">
+              <p>© 2025 HERRAMIENTAS App Web | <a href="#" id="openModal">Acerca de</a></p>
+            </div>
+        
+            <div class="footer-column footer-right">
+                <p>I.S.P. N° 65 Amelia Díaz</p>
+                <p>San Vicente, Prov. Santa Fe</p>             
+                <div class="social-icons">
+                    <a href="https://api.whatsapp.com/send?phone=543492676823" target="_blank">
+                        <img src="/img/wa.png" alt="WhatsApp">
+                    </a>
+                    <a href="https://www.instagram.com/isp65sanvicente?igsh=MTJhbjB4ZnZxbW1qZA==" target="_blank">
+                        <img src="/img/instagram.png" alt="Instagram">
+                    </a>
+                </div>
+
+            </div>
+          </div>
+    </footer>
+    <!-- Modal de "Acerca de" -->
+    <div id="modalAcerca" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Acerca de</h2>
+            <p class="text__modal">Esta es una aplicación web de código abierto bajo la 
+                <a href="LICENSE.html" target="_blank">licencia MIT.</a>
+            </p>
+            <p class="text__modal">Desarrollado por: Ing. Jorge Mendoza</p>
+            <p class="text__modal">Versión 1.2.0 - 2025 </a></p>
+        </div>
+    </div>
+  
+
+</body>
+</html>
+

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medición de Iluminación</title>
+    <link rel="stylesheet" href="/estilos/colores.css">
+    <link rel="stylesheet" href="/estilos/general.css">
+    <link rel="stylesheet" href="./estilos/styles2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script defer src="/scripts/script.js"></script>
+    <script src="/lib/jszip.min.js"></script>
+    <script src="/lib/docxtemplater.min.js"></script>
+    <script src="/lib/FileSaver.min.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EEXJXBJBQB"></script>
+	<script>
+  	    window.dataLayer = window.dataLayer || [];
+  	    function gtag(){dataLayer.push(arguments);}
+  	    gtag('js', new Date());
+  	    gtag('config', 'G-EEXJXBJBQB');
+	</script>
+
+</head>
+<body>
+    <main class="main-content">
+        <header>
+            <a href="/index.html">
+                <img src="/img/Logo_Visp.png" class="logo" alt="Logo VISP">
+              
+            </a>
+            <h1>ILUMINACIÓN</h1>
+            <nav>
+                <ul class="menu">
+                    <li><a href="index.html">Información</a></li>
+                    <li><a href="puntosmedicion.html" >Puntos de medición</a></li>
+                    <li><a href="mediciones.html" class="active">Mediciones</a></li>
+                    <li><a href="localizada.html">Localizada</a></li>
+                </ul>
+                <div class="menu-hamburguesa" onclick="toggleMenu()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </nav>
+        </header>
+        <h2 class="section-title">MEDICIONES</h2>
+        <section class="contenedor-principal">
+            <div class="contenedor__izquierda">
+                <h4 class="titulo-instrucciones">Puntos Medidos en lux</h4>
+                <table id="tabla">
+                    <tbody>
+                        <!-- Se generan 10 filas con 8 columnas -->
+                    </tbody>
+                </table>
+                
+                <section class="seccion2">
+                    <h4 class="titulo-instrucciones">Introduce el nivel de iluminación requerido:</h4>
+                    <input type="text"  id="nivel-iluminacion-requerido" class="input-name" oninput="validarNumeroReal(this)" placeholder="Nivel iluminacion">
+                </section>
+            </div>
+            <div class="contenedor__derecha">
+                <section class="botonera">
+                    <button class="button-draw" onclick="leerTabla()">
+                        <img src="/img/calcular.svg" alt="Ícono para calcular">Calcular
+                    </button>
+                    <button class="button-draw" onclick="borrarTabla()">
+                        <img src="/img/remove.svg" alt="ícono para borrar todo">Borrar Todo
+                    </button>
+                    <!-- Botón y Modal para Generar Informe -->
+                    <button class="button-draw" id="boton-informeBo" onclick="informeResultado()">Generar Informe</button>
+                    <div id="modalPlantilla" class="modal">
+                        <div class="modal-content">
+                            <span class="close" id="cerrarModalPlantilla">×</span>
+                            <h2>Generar Informe</h2>
+                            <div class="plantilla-opciones">
+                                <p class="titulo-opciones">Seleccionar Plantilla:</p>
+                                <label>
+                                    <input type="radio" name="plantillaModalSeleccion" value="default" checked> Usar Plantilla Predeterminada
+                                </label>
+                                <label>
+                                    <input type="radio" name="plantillaModalSeleccion" value="subir"> Subir mi Plantilla (.docx):
+                                </label>
+                                <input type="file" id="plantillaModalUpload" accept=".docx" style="display: none;">
+                            </div>
+                            <div class="modal-botones">
+                                <button class="button-draw" id="boton-generarInformeModal">Generar Informe</button>
+                                <button class="button-draw" id="boton-cancelarInformeModal">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>    
+                <h3 class="titulo-output">RESULTADOS</h3>
+                <p class="titulo-output-mediciones">Cantidad de mediciones realizadas: <span class="resultado-mediciones" id="nroMediciones">-</span></p>
+                <p class="titulo-output-mediciones">Promedio (Emedio) en lux: <span class="resultado-mediciones" id="emedio">-</span></p>
+                <p class="titulo-output-mediciones">Valor mínimo (Emínimo) en lux: <span class="resultado-mediciones" id="minimo">-</span></p>
+                <p class="titulo-iluminacion-general" id="ilum-general"></p>
+                <p class="titulo-iluminacion-general" id="uniformidad"></p>
+                   
+            </div>
+        </section>
+        <footer>
+            <div class="footer-container">
+                <div class="footer-column footer-left">
+                  <a href="https://isp65-sfe.infd.edu.ar/sitio/" target="_blank">
+                    <img src="/img/logoISP65.png" class="logo" alt="Logo ISP 65">
+                  </a>
+                </div>
+            
+                <div class="footer-column footer-center">
+                  <p>© 2025 HERRAMIENTAS App Web | <a href="#" id="openModal">Acerca de</a></p>
+                </div>
+            
+                <div class="footer-column footer-right">
+                    <p>I.S.P. N° 65 Amelia Díaz</p>
+                    <p>San Vicente, Prov. Santa Fe</p>             
+                    <div class="social-icons">
+                    <a href="https://www.facebook.com" target="_blank">
+                      <img src="/img/facebook.png" alt="Facebook">
+                    </a>
+                    <a href="https://www.instagram.com" target="_blank">
+                      <img src="/img/instagram.png" alt="Instagram">
+                    </a>
+                  </div>
+    
+                </div>
+              </div>
+        </footer>
+        <!-- Modal de "Acerca de" -->
+        <div id="modalAcerca" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Acerca de</h2>
+                <p class="text__modal">Esta es una aplicación web de código abierto bajo la
+                    <a href="LICENSE.html" target="_blank">licencia MIT.</a>
+                </p>
+                <p class="text__modal">Desarrollado por: Ing. Jorge Mendoza</p>
+                <p class="text__modal">Versión 1.2.0 - 2025</a></p>
+            </div>
+        </div>
+    
+    </main>
+    <script src="./scripts/app.js"></script>
+    <script src="./scripts/informe.js"></script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+* /* Estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+html {
+    font-size: 16px; /* 1rem = 16px */
+}
+
+body {
+    font-family: Montserrat, sans-serif;
+    background-color: var(--color-body); /* Gris oscuro */
+}
+
+/* Asegurar que el body ocupe toda la altura de la pantalla */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Header */
+header {
+    background-color: var(--color-header-fondo);
+    color:var(--color-texto);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 1.8rem;
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo{
+    height: 3.5rem; /* La imagen tomará el 100% del header */
+    max-height: 3.5rem; /* Asegura que no supere el header */
+    width: auto;  /* Mantiene la proporción */
+    padding-top: 0.5rem;
+  }
+
+/*Título de la aplicación*/
+h1{
+    font-family: Montserrat;
+    font-weight: SemiBold;
+    font-size: 2.1rem;
+}
+
+/* Footer fijo en la parte inferior */
+footer {
+  background-color: var(--color-footer-fondo); /* Gris oscuro */
+  color: var(--color-footer-texto);
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+}
+
+
+.footer-container {
+  display: flex;           /* Activar Flexbox */
+  justify-content: space-between; /* Espacio entre las columnas */
+  align-items: center;      /* Centrar verticalmente los elementos */
+}
+
+.footer-column {
+  width: 30%;              /* Cada columna ocupa un tercio del ancho */
+  text-align: center;       /* Centrar el contenido dentro de cada columna */
+}
+
+.footer-left {
+  text-align: left;       /* Alinear a la izquierda el contenido de la columna izquierda */
+}
+
+.footer-right {
+  text-align: right;       /* Alinear a la derecha el contenido de la columna derecha */
+}
+
+
+/* estilo iconos en footer */
+.social-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.94rem;
+  margin-top: 0.625rem;
+}
+
+.social-icons img {
+  width: 1.2rem;
+  height: 1.2rem;
+  transition: transform 0.3s;
+}
+
+.social-icons img:hover {
+  transform: scale(1.2);
+}
+
+/* Menú de navegación */
+nav {
+  position: relative;
+  z-index: 2; /* El menú estará por encima de la imagen */
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.menu li {
+  display: inline;
+}
+
+
+
+
+  .menu a {
+    text-decoration: none;
+    color: var(--color-texto);
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+  }
+  
+  p .hiper {
+      text-decoration:underline;
+      color: var(--color-texto);
+      font-size: 1.25rem;
+      transition: color 0.15s ease;
+    
+  }
+  
+  p .hiper:hover {
+    /*  color: var(--color-resaltado); */
+      background-color:var(--color-resaltado) ;
+    }
+  
+  /* Cambio de color al pasar el cursor */
+  .menu a:hover {
+    /*  color: var(--color-resaltado); */
+    background-color:var(--color-resaltado) ;
+  }
+  
+  /* Cambio de color al hacer clic */
+  .menu a.active {
+    background-color:var(--color-resaltado) ;
+  }
+  
+  /* Menú hamburguesa (oculto en pantallas grandes) */
+  .menu-hamburguesa {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+  }
+  
+  .menu-hamburguesa div {
+      width: 30px;
+      height: 4px;
+      background-color: var(--color-texto);
+      border-radius: 2px;
+  }
+
+/* Botones generales de la aplicción */
+  button {
+    font-family: "Montserrat", bold;
+    border: 0.125rem var(--color-borde);
+    border-radius: 1.6rem;
+    box-shadow: 0 0.25rem 0.5rem var(--color-borde);
+    cursor: pointer;
+    align-items: center;
+    margin: 1rem;
+  
+  }
+  .button-draw {
+    display: flex;
+    align-items:center;
+    align-self: center;
+    justify-content:center;
+    background-color: var(--color-secundario);
+    width: 18rem;
+    font-size: 1rem;
+    height: 1.875rem;
+    margin-top: 0.5rem;
+  }
+  
+  button:hover {
+    background-color: var(--color-resaltado);
+  }
+
+
+  /* Estilos para el modal */
+    /* Fondo oscuro cuando el modal está activo */
+  .modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: var(--color-semitransparente); 
+}
+
+  /* Contenedor del modal */
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-modal-activo);
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 1.25rem;
+    border: 1px solid var(--color-borde);
+    width: 50%; /* Could be more or less, depending on screen size */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    position: relative; /* Para posicionar el botón de cerrar */
+    align-items: center;
+}
+
+
+  /* Botón de cierre (la "X") */
+  .close {
+      color: var(--color-texto);
+      float: right;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      position: absolute; /* Posicionamiento absoluto dentro de .modal-content */
+      top: 0;
+      align-self: flex-end;
+  }
+
+  .close:hover {
+      color: var(--color-resaltado);
+  }
+
+  .plantilla-opciones {
+    margin-bottom: 15px;
+}
+
+  .plantilla-opciones label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .modal-botones {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .modal-botones button {
+    margin-left: 10px;
+  }
+
+  /* Estilo para el enlace de "Acerca de" */
+  footer a {
+        color: var(--color-footer-texto);
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+
+    footer a:hover {
+        color: var(--color-resaltado);
+    }
+  .text__modal{
+    font-family: Montserrat, sans-serif;
+    font-size: 1rem;
+    padding: 0.25rem;
+  }
+
+
+
+
+      
+

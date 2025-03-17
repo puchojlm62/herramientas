@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medición de Iluminación</title>
+    <link rel="stylesheet" href="/estilos/colores.css">
+    <link rel="stylesheet" href="/estilos/general.css">
+    <link rel="stylesheet" href="./estilos/styles1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script defer src="/scripts/script.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EEXJXBJBQB"></script>
+	<script>
+  	    window.dataLayer = window.dataLayer || [];
+  	    function gtag(){dataLayer.push(arguments);}
+  	    gtag('js', new Date());
+  	    gtag('config', 'G-EEXJXBJBQB');
+	</script>    
+</head>
+<body>
+    <header>
+        <a href="/index.html">
+            <img src="/img/Logo_Visp.png" class="logo" alt="Logo VISP">
+          
+        </a>
+        <h1>ILUMINACIÓN</h1>
+        <nav>
+            <ul class="menu">
+		        <li><a href="index.html" >Información</a></li>
+                <li><a href="puntosmedicion.html" class="active">Puntos de medición</a></li>
+                <li><a href="mediciones.html">Mediciones</a></li>
+                <li><a href="localizada.html">Localizada</a></li>
+            </ul>
+            <div class="menu-hamburguesa" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </nav>
+    </header>
+
+    <h2 class="section-title">NÚMERO MÍNIMO DE PUNTOS DE MEDICIÓN</h2>
+    <main class="contenedor-principal">
+        <div class="contenedor__izquierda">
+            <h3 class="titulo-input">Medidas del Local </h3>
+            <h4 class="titulo-instrucciones">Ingrese largo del local (metros) </h4>
+            <input type="text" oninput="validarNumeroReal(this)" id="largo" class="input-name" placeholder="Largo">
+ 
+            <h4 class="titulo-instrucciones">Ingrese ancho del local (metros) </h4>
+            <input type="text" oninput="validarNumeroReal(this)" id="ancho" class="input-name" placeholder="Ancho">
+ 
+            <h4 class="titulo-instrucciones">Ingrese altura de las luminarias (metros) </h4>
+            <input type="text" oninput="validarNumeroReal(this)" id="luminaria" class="input-name" placeholder="Altura luminarias">
+
+            <section class="seccion2">
+                <button class="button-draw" onclick="calcular()">
+                    <img src="/img/calcular.svg" alt="Ícono para calcular">Calcular
+                </button>
+                <button class="button-draw" onclick="borrarTodo()">
+                    <img src="/img/remove.svg" alt="Ícono para calcular">Borrar Todo
+                </button>    
+            </section>            
+        </div>
+
+        <div class="contenedor__derecha">
+                <div class="contenedor-imagen">
+                    <img src="./img/puntosMuestreo.png" class="imagen" alt="Fórmula para obtener punto de muestreo">
+                </div>
+                <div class="contenedor-texto">
+                    <h3 class="titulo-output">RESULTADOS </h3>
+                    <p1 class="indice" id="indice">El índice del local es:</p1>
+                    <p2 class="resultado" id="resultado">Puntos mínimos de medición:</p2>
+                </div>
+            
+        </div>
+        
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column footer-left">
+              <a href="https://isp65-sfe.infd.edu.ar/sitio/" target="_blank">
+                <img src="/img/logoISP65.png" class="logo" alt="Logo ISP 65">
+              </a>
+            </div>
+        
+            <div class="footer-column footer-center">
+              <p>© 2025 HERRAMIENTAS App Web | <a href="#" id="openModal">Acerca de</a></p>
+            </div>
+        
+            <div class="footer-column footer-right">
+                <p>I.S.P. N° 65 Amelia Díaz</p>
+                <p>San Vicente, Prov. Santa Fe</p>             
+                <div class="social-icons">
+                    <a href="https://api.whatsapp.com/send?phone=543492676823" target="_blank">
+                        <img src="/img/wa.png" alt="WhatsApp">
+                    </a>
+                    <a href="https://www.instagram.com/isp65sanvicente?igsh=MTJhbjB4ZnZxbW1qZA==" target="_blank">
+                        <img src="/img/instagram.png" alt="Instagram">
+                    </a>
+                </div>
+
+            </div>
+          </div>
+    </footer>
+
+    <div id="modalAcerca" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Acerca de</h2>
+            <p class="text__modal">Esta es una aplicación web de código abierto bajo la
+                <a href="LICENSE.html" target="_blank">licencia MIT.</a>
+            </p>
+            <p class="text__modal">Desarrollado por: Ing. Jorge Mendoza</p>
+            <p class="text__modal">Versión 1.2.0 - 2025</a></p>
+        </div>
+    </div>
+
+    <script src="./scripts/app.js"></script>
+
+
+</body>
+</html>

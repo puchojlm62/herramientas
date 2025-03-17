@@ -1,0 +1,273 @@
+
+/*Título de la aplicación*/
+h1{
+    font-family: Montserrat;
+    font-weight: SemiBold;
+    font-size: 2.1rem;
+}
+
+/* --- TÍTULOS --- */
+
+.section-title {
+  font-family: "Montserrat", serif;
+  font-size: 1.75rem;
+  color:var(--color-titulo-principal);
+  margin: 1rem 0px;
+  text-align: center;
+}
+
+/* Contenedor principal */
+/* El main debe ocupar todo el espacio disponible */
+.contenedor-principal {
+  background-color: var(--color-secundario);
+  flex: 1; /* Hace que ocupe el espacio restante */
+  display: flex;
+  justify-content: space-evenly;
+  border-radius: 4rem 4rem 0 0;
+  border: 1px solid var(--color-borde);
+  width: 100%;
+  padding: 0rem;
+  gap: 0rem;
+}
+/* Contenedores laterales */
+ .contenedor__izquierda {
+  width: 48%;
+  border: 0px solid var(--color-borde);
+  justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
+ 
+  margin-left: 6rem;
+  margin-top: 0.5rem;
+ }
+
+ 
+.titulo-input{
+  font-family: Montserrat;
+  font-weight: SemiBold;
+  font-size: 1.75rem;
+  color: var(--color-texto);
+}
+.titulo-instrucciones{
+  font-family: Montserrat;
+  font-weight: Medium;
+  font-size: 1.25rem;
+  color: var(--color-texto);
+  padding: 2px;
+}
+.input-name {
+  background-color:var(--color-input-fondo);/*rgb(233, 226, 245);*/
+  color: var(--color-input); /*color de entrada de texto*/
+  opacity: 1;
+  width: 12.125rem;
+  padding: 0.3rem;
+  border: 0px solid var(--color-borde);
+  border-radius: 1rem 1rem 1rem 1rem;
+  font-size: 1.25rem;
+  font-family: Montserrat;
+  font-weight: Bold;
+ text-align: center;
+}
+.input-name:hover {
+  background-color:var(--color-resaltado);
+}
+.seccion2{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  align-items: baseline;
+  height: 10%;
+  width: 60%;
+  border: 0px solid var(--color-borde);
+  background-color: var(--color-secundario);
+  position: relative;
+  top: 0.6rem;
+}
+
+/* FIN Contenedor izquierdo */
+
+/*Comienzo contenedor derecho*/
+.contenedor__derecha {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  margin-right: 6rem;
+  margin-top: 2rem;
+}
+/* Estilos para la imagen */
+.imagen {
+  max-width: 100%; /* Ancho máximo para la imagen en escritorio */
+  height: auto; /* Alto automático para mantener la proporción */
+  display: block;
+  margin: 1rem auto; /* Centrar la imagen */
+}
+.titulo-output{
+  padding: 0.2rem 0.4rem;
+  font-family: Montserrat;
+  font-weight: SemiBold;
+  font-size: 1.5rem;
+  color: var(--color-texto);
+  align-self:center;
+}
+.indice {
+  font-family: "Montserrat", bold;
+  font-size: 1.2rem;
+  color:var(--color-texto);
+  padding-top: 1rem;
+
+}
+.resultado {
+  font-family: "Montserrat", bold;
+  font-size: 1.5rem;
+  color:var(--color-resultado);
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.contenedor-texto{
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+/* FIN Contenedor derecha */
+
+
+/* --- RESPONSIVIDAD --- */
+@media (max-width: 768px) {
+  /* Ajustes para el header */
+  header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      height: auto;
+      padding: 1rem;
+      flex-wrap: nowrap;
+  } 
+
+  .logo {
+      height: 4rem;
+  }
+
+  h1 {
+      font-size: 1.25rem;
+  }
+
+  nav {
+      text-align: right;
+  }
+
+  /* Ajustes para el menú */
+  .menu {
+    display: none;
+    flex-direction: column;
+    background-color: var(--color-header-fondo);
+    position: absolute;
+    right: 0;
+    top: 60px;
+    width: 150px;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+
+  .menu a {
+      display: block;
+      padding: 0.5rem 0;
+      color: var(--color-header-texto);
+      text-decoration: none;
+  }
+
+  .menu.activo {
+      display: flex;
+  }
+
+  .menu-hamburguesa {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+  }
+
+  .menu-hamburguesa div {
+      width: 30px;
+      height: 4px;
+      background-color: var(--color-header-texto);
+      border-radius: 2px;
+  }
+
+  /* Ajustes para el main */
+  .contenedor-principal {
+      width: 100%;
+      flex-direction: column; /* Una sola columna */
+      align-items: center;
+      margin: 1rem 0; /* Margen arriba y abajo */
+      padding: 1rem;
+      border-radius: 2rem 2rem 0 0;
+  }
+
+  .section-title {
+      font-size: 1.5rem;
+  }
+
+  .contenedor__izquierda {
+      width: 100%;
+      margin: 1rem 0;
+      padding: 0;
+  }
+
+  .titulo-input,
+  .titulo-instrucciones {
+      font-size: 1.2rem;
+  }
+
+  .input-name {
+      width: 100%;
+      font-size: 1rem;
+      padding: 0.5rem;
+  }
+
+  /* Ajustes para la imagen */
+  .contenedor__derecha {
+    width: 100%;
+    margin: 1rem 0;
+    padding: 0;
+    display: flex; /* Habilitar flexbox */
+    flex-direction: column; /* Disponer elementos en columna */
+    align-items: center; /* Centrar horizontalmente */
+}
+
+
+.imagen {
+  max-width: 90%; /* Ancho máximo para la imagen en responsivo */
+  height: auto;
+}
+
+.titulo-output {
+  font-size: 1.2rem; /* Tamaño de fuente para responsivo */
+}
+
+.indice,
+.resultado {
+  font-size: 1rem; /* Tamaño de fuente para responsivo */
+  width: 100%; /* Ocupan todo el ancho */
+  text-align: center; /* Centrar el texto */
+}
+
+  /* Ajustes para los botones */
+  .seccion2 {
+      display: flex;
+      flex-direction: column; /* Botones en columna */
+      align-items: center; /* Centrar horizontalmente */
+      width: 100%; /* Ocupar todo el ancho */
+      margin: 1rem 0; /* Margen arriba y abajo */
+  }
+
+  .button-draw,
+  .button-voz {
+      width: 80%; /* Ancho para los botones */
+      margin: 0.5rem 0; /* Margen entre botones */
+  }
+}
