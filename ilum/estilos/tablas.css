@@ -1,0 +1,92 @@
+.table-container {
+  width: 991px; /* Ancho de la tabla */
+  margin: 0 auto; /* Centrar el contenedor */
+}
+
+.table-container2 {
+  width: 582px; /* Nuevo ancho del contenedor para Tabla 2 */
+  margin: 0 auto; /* Centrar el contenedor */
+}
+
+
+
+.table-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.table-subtitle {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.table-description {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.tg  {
+  border-collapse:collapse;
+  border-spacing:0;
+  width: 100%; /* La tabla ocupa el 100% del contenedor */
+  table-layout: fixed;
+}
+
+.tg td{
+  border-color:black;
+  border-style:solid;
+  border-width:1px;
+  font-family:Arial, sans-serif;
+  font-size:14px;
+  overflow:hidden;
+  padding:10px 5px;
+  word-break:normal;
+}
+
+.tg th{
+  border-color:black;
+  border-style:solid;
+  border-width:1px;
+  font-family:Arial, sans-serif;
+  font-size:14px;
+  font-weight:normal;
+  overflow:hidden;
+  padding:10px 5px;
+  word-break:normal;
+}
+
+.tg .tg-cly1{
+  text-align:left;
+  vertical-align:middle
+}
+
+.tg .tg-j41u{
+  background-color:#efefef;
+  font-size:16px;
+  font-weight:bold;
+  text-align:center;
+  vertical-align:middle
+}
+
+.tg .tg-nrix{
+  text-align:center;
+  vertical-align:middle
+}
+
+/* Estilos específicos para las columnas de la Tabla 2 */
+.tg col:nth-child(1) {
+  width: 390px; /* Ancho de la primera columna de la Tabla 1 */
+}
+
+.tg col:nth-child(2) {
+  width: 192px; /* Ancho de la segunda columna de la Tabla 1 */
+}
+
+
+@media (max-width: 768px) {
+  .table-container, .table-container2 {
+    width: 100%; /* El contenedor ocupa todo el ancho de la pantalla */
+  }
+}
