@@ -3,7 +3,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
 }
 
 html {
@@ -16,17 +15,17 @@ body {
 }
 
 /* Asegurar que el body ocupe toda la altura de la pantalla */
-html, body {
+html,
+body {
     height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-
 /* Header */
 header {
     background-color: var(--color-header-fondo);
-    color:var(--color-texto);
+    color: var(--color-texto);
     text-align: center;
     padding: 1.5rem;
     font-size: 1.8rem;
@@ -36,136 +35,130 @@ header {
     align-items: center;
 }
 
-.logo{
+.logo {
     height: 3.5rem; /* La imagen tomará el 100% del header */
     max-height: 3.5rem; /* Asegura que no supere el header */
-    width: auto;  /* Mantiene la proporción */
+    width: auto; /* Mantiene la proporción */
     padding-top: 0.5rem;
-  }
+}
 
 /*Título de la aplicación*/
-h1{
+h1 {
     font-family: Montserrat;
-    font-weight: SemiBold;
+    font-weight: 600;
     font-size: 2.1rem;
 }
 
 /* Footer fijo en la parte inferior */
 footer {
-  background-color: var(--color-footer-fondo); /* Gris oscuro */
-  color: var(--color-footer-texto);
-  text-align: center;
-  padding: 0.5rem;
-  font-size: 1rem;
-  width: 100%;
+    background-color: var(--color-footer-fondo); /* Gris oscuro */
+    color: var(--color-footer-texto);
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 100%;
 }
 
-
 .footer-container {
-  display: flex;           /* Activar Flexbox */
-  justify-content: space-between; /* Espacio entre las columnas */
-  align-items: center;      /* Centrar verticalmente los elementos */
+    display: flex; /* Activar Flexbox */
+    justify-content: space-between; /* Espacio entre las columnas */
+    align-items: center; /* Centrar verticalmente los elementos */
 }
 
 .footer-column {
-  width: 30%;              /* Cada columna ocupa un tercio del ancho */
-  text-align: center;       /* Centrar el contenido dentro de cada columna */
+    width: 30%; /* Cada columna ocupa un tercio del ancho */
+    text-align: center; /* Centrar el contenido dentro de cada columna */
 }
 
 .footer-left {
-  text-align: left;       /* Alinear a la izquierda el contenido de la columna izquierda */
+    text-align: left; /* Alinear a la izquierda el contenido de la columna izquierda */
 }
 
 .footer-right {
-  text-align: right;       /* Alinear a la derecha el contenido de la columna derecha */
+    text-align: right; /* Alinear a la derecha el contenido de la columna derecha */
 }
-
 
 /* estilo iconos en footer */
 .social-icons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.94rem;
-  margin-top: 0.625rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.94rem;
+    margin-top: 0.625rem;
 }
 
 .social-icons img {
-  width: 1.2rem;
-  height: 1.2rem;
-  transition: transform 0.3s;
+    width: 1.2rem;
+    height: 1.2rem;
+    transition: transform 0.3s;
 }
 
 .social-icons img:hover {
-  transform: scale(1.2);
+    transform: scale(1.2);
 }
 
 /* Menú de navegación */
 nav {
-  position: relative;
-  z-index: 2; /* El menú estará por encima de la imagen */
+    position: relative;
+    z-index: 2; /* El menú estará por encima de la imagen */
 }
 
 .menu {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
 }
 
 .menu li {
-  display: inline;
+    display: inline;
 }
 
-
-
-
-  .menu a {
+.menu a {
     text-decoration: none;
     color: var(--color-texto);
     font-size: 1.2rem;
     transition: color 0.3s ease;
-  }
-  
-  p .hiper {
-      text-decoration:underline;
-      color: var(--color-texto);
-      font-size: 1.25rem;
-      transition: color 0.15s ease;
-    
-  }
-  
-  p .hiper:hover {
+}
+
+p .hiper {
+    text-decoration: underline;
+    color: var(--color-texto);
+    font-size: 1.25rem;
+    transition: color 0.15s ease;
+}
+
+p .hiper:hover {
     /*  color: var(--color-resaltado); */
-      background-color:var(--color-resaltado) ;
-    }
-  
-  /* Cambio de color al pasar el cursor */
-  .menu a:hover {
+    background-color: var(--color-resaltado);
+}
+
+/* Cambio de color al pasar el cursor */
+.menu a:hover {
     /*  color: var(--color-resaltado); */
-    background-color:var(--color-resaltado) ;
-  }
-  
-  /* Cambio de color al hacer clic */
-  .menu a.active {
-    background-color:var(--color-resaltado) ;
-  }
-  
-  /* Menú hamburguesa (oculto en pantallas grandes) */
-  .menu-hamburguesa {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-  }
-  
-  .menu-hamburguesa div {
-      width: 30px;
-      height: 4px;
-      background-color: var(--color-texto);
-      border-radius: 2px;
-  }
+    background-color: var(--color-resaltado);
+}
+
+/* Cambio de color al hacer clic */
+.menu a.active {
+    background-color: var(--color-resaltado);
+}
+
+/* Menú hamburguesa (oculto en pantallas grandes) */
+.menu-hamburguesa {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.menu-hamburguesa div {
+    width: 30px;
+    height: 4px;
+    background-color: var(--color-texto);
+    border-radius: 2px;
+}
 
 /* Botones generales de la aplicción */
-  button {
+button {
     font-family: "Montserrat", bold;
     border: 0.125rem var(--color-borde);
     border-radius: 1.6rem;
@@ -173,40 +166,38 @@ nav {
     cursor: pointer;
     align-items: center;
     margin: 1rem;
-  
-  }
-  .button-draw {
+}
+.button-draw {
     display: flex;
-    align-items:center;
+    align-items: center;
     align-self: center;
-    justify-content:center;
+    justify-content: center;
     background-color: var(--color-secundario);
     width: 18rem;
     font-size: 1rem;
     height: 1.875rem;
     margin-top: 0.5rem;
-  }
-  
-  button:hover {
+}
+
+button:hover {
     background-color: var(--color-resaltado);
-  }
+}
 
-
-  /* Estilos para el modal */
-    /* Fondo oscuro cuando el modal está activo */
-  .modal {
+/* Estilos para el modal */
+/* Fondo oscuro cuando el modal está activo */
+.modal {
     display: none; /* Oculto por defecto */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
-    width: 100%; 
+    width: 100%;
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: var(--color-semitransparente); 
+    background-color: var(--color-semitransparente);
 }
 
-  /* Contenedor del modal */
+/* Contenedor del modal */
 .modal-content {
     display: flex;
     flex-direction: column;
@@ -216,65 +207,142 @@ nav {
     border: 1px solid var(--color-borde);
     width: 50%; /* Could be more or less, depending on screen size */
     border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
     position: relative; /* Para posicionar el botón de cerrar */
     align-items: center;
 }
 
+/* Botón de cierre (la "X") */
+.close {
+    color: var(--color-texto);
+    float: right;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute; /* Posicionamiento absoluto dentro de .modal-content */
+    top: 0;
+    align-self: flex-end;
+}
 
-  /* Botón de cierre (la "X") */
-  .close {
-      color: var(--color-texto);
-      float: right;
-      font-size: 1.5rem;
-      font-weight: bold;
-      cursor: pointer;
-      position: absolute; /* Posicionamiento absoluto dentro de .modal-content */
-      top: 0;
-      align-self: flex-end;
-  }
+.close:hover {
+    color: var(--color-resaltado);
+}
 
-  .close:hover {
-      color: var(--color-resaltado);
-  }
-
-  .plantilla-opciones {
+.plantilla-opciones {
     margin-bottom: 15px;
 }
 
-  .plantilla-opciones label {
+.plantilla-opciones label {
     display: block;
     margin-bottom: 5px;
-  }
+}
 
-  .modal-botones {
+.modal-botones {
     text-align: center;
     margin-top: 20px;
-  }
+}
 
-  .modal-botones button {
+.modal-botones button {
     margin-left: 10px;
-  }
+}
 
-  /* Estilo para el enlace de "Acerca de" */
-  footer a {
-        color: var(--color-footer-texto);
-        text-decoration: none;
-        font-weight: bold;
-        transition: color 0.3s;
-    }
+/* Estilo para el enlace de "Acerca de" */
+footer a {
+    color: var(--color-footer-texto);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
 
-    footer a:hover {
-        color: var(--color-resaltado);
-    }
-  .text__modal{
+footer a:hover {
+    color: var(--color-resaltado);
+}
+.text__modal {
     font-family: Montserrat, sans-serif;
     font-size: 1rem;
     padding: 0.25rem;
-  }
+}
 
+/* ============================================================
+   Agregado para footer.js centralizado — modal "Acerca de"
+   ============================================================ */
 
+/* Footer: texto legal pequeño debajo del copyright */
+.footer-legal {
+    font-size: 0.72rem;
+    opacity: 0.75;
+    margin-top: 0.15rem;
+    line-height: 1.3;
+}
 
+/* Modal Acerca de — layout extendido */
+.modal-acerca-content {
+    align-items: flex-start;
+    width: 60%;
+    max-width: 680px;
+    margin: 6% auto;
+    max-height: 82vh;
+    overflow-y: auto;
+}
 
-      
+/* Separador interno del modal */
+.modal-separador {
+    width: 100%;
+    border: none;
+    border-top: 1px solid var(--color-borde);
+    margin: 0.6rem 0;
+    opacity: 0.2;
+}
 
+/* Subtítulos de sección dentro del modal */
+.modal-subtitulo {
+    font-family: Montserrat, sans-serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    margin: 0.4rem 0 0.2rem 0;
+    color: var(--color-footer-fondo);
+}
+
+/* Lista de herramientas en ayuda rápida */
+.modal-lista {
+    font-family: Montserrat, sans-serif;
+    font-size: 0.88rem;
+    padding-left: 1.2rem;
+    margin: 0.2rem 0 0.4rem 0;
+    line-height: 1.65;
+}
+
+/* Responsive: modal ocupa más ancho en móvil */
+@media (max-width: 600px) {
+    .modal-acerca-content {
+        width: 92%;
+        margin: 10% auto;
+    }
+}
+
+/* ============================================================
+   Clases de color para índices de protección auditiva
+   Usadas en atenua/scripts/app.js, appsnr.js y apphml.js
+   ============================================================ */
+
+.indice-sobreprotegido {
+    background-color: orange;
+    color: black;
+}
+
+.indice-buena {
+    background-color: lightgreen;
+    color: black;
+}
+
+.indice-aceptable {
+    background-color: lightyellow;
+    color: black;
+}
+
+.indice-insuficiente {
+    background-color: red;
+    color: black;
+}

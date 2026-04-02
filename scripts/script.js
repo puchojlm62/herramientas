@@ -42,30 +42,4 @@ function toggleMenu() {
     menu.classList.toggle("activo");
 }
 
-/* para abrir y cerrar el modal Acerca de */
-document.addEventListener("DOMContentLoaded", function () {
-    const modalAcerca = document.getElementById("modalAcerca");
-    const openModalAcerca = document.getElementById("openModal");
-    const closeModalAcerca = modalAcerca.querySelector(".close");
-    
-    // Abrir el modal al hacer clic en el enlace
-    openModalAcerca.addEventListener("click", function (event) {
-        event.preventDefault(); // Evita que el enlace recargue la página
-        modalAcerca.style.display = "block";
-    });
-
-    // Cerrar el modal al hacer clic en la "X"
-    closeModalAcerca.addEventListener("click", function () {
-      modalAcerca.style.display = "none";
-      console.log("clic");
-    }); 
-
-    // Cerrar el modal si el usuario hace clic fuera del contenido
-    window.addEventListener("click", function (event) {
-        if (event.target === modalAcerca) {
-            modalAcerca.style.display = "none";
-        }
-    });
-});
-
 

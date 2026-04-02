@@ -1,0 +1,102 @@
+# ============================================================
+# VISP Herramientas — .gitignore
+# ============================================================
+
+# Dependencias PHP (Composer)
+vendor/
+
+# Archivos de entorno y credenciales — NUNCA subir al repo
+.env
+.env.*
+*.env
+
+# Archivos de configuración local del servidor
+config.local.php
+config.local.json
+
+# Rate limiting temporales (generados por enviar_mail.php)
+/tmp/mail_rate_*
+
+# Archivos de respaldo y temporales
+*.bak
+*.backup
+*~
+*.swp
+*.swo
+*.tmp
+
+# Archivos de copia (como los que existían antes)
+*- copia*
+*- copy*
+*_copia*
+
+# Logs
+*.log
+error_log
+access_log
+
+# Archivos de sistema operativo
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.directory
+
+# Editores e IDEs
+# VSCode
+.vscode/
+*.code-workspace
+
+# JetBrains (PHPStorm, WebStorm, etc.)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim / Emacs
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+Session.vim
+.netrwhist
+
+# Node (si se agregan herramientas de build en el futuro)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Archivos de test / debug
+test.php
+debug.php
+phpinfo.php
+info.php
+
+# Composer lock (se puede incluir en producción pero
+# generalmente se excluye en proyectos sin CI/CD configurado)
+# composer.lock   ← descomentar si se prefiere no versionar el lock
+
+# Archivos de distribución / build
+dist/
+build/
+
+# Certificados y claves
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx

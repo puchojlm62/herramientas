@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medición de Iluminación</title>
+    <title>Iluminación — Puntos de medición</title>
     <link rel="stylesheet" href="/estilos/colores.css">
     <link rel="stylesheet" href="/estilos/general.css">
     <link rel="stylesheet" href="./estilos/styles1.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body, {delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
     <script defer src="/scripts/script.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EEXJXBJBQB"></script>
 	<script>
@@ -15,13 +19,15 @@
   	    function gtag(){dataLayer.push(arguments);}
   	    gtag('js', new Date());
   	    gtag('config', 'G-EEXJXBJBQB');
-	</script>    
+	</script>
+    <meta name="description" content="Calcula la cantidad minima de puntos de medicion de iluminacion segun el indice del local. Normativa argentina Resolucion 295/03.">
+    <link rel="canonical" href="https://higseg.ar/ilum/puntosmedicion.html">
 </head>
 <body>
     <header>
         <a href="/index.html">
-            <img src="/img/Logo_Visp.png" class="logo" alt="Logo VISP">
-          
+            <img src="/img/Logo_Visp.webp" class="logo" alt="Logo VISP">
+
         </a>
         <h1>ILUMINACIÓN</h1>
         <nav>
@@ -46,10 +52,10 @@
             <h3 class="titulo-input">Medidas del Local </h3>
             <h4 class="titulo-instrucciones">Ingrese largo del local (metros) </h4>
             <input type="text" oninput="validarNumeroReal(this)" id="largo" class="input-name" placeholder="Largo">
- 
+
             <h4 class="titulo-instrucciones">Ingrese ancho del local (metros) </h4>
             <input type="text" oninput="validarNumeroReal(this)" id="ancho" class="input-name" placeholder="Ancho">
- 
+
             <h4 class="titulo-instrucciones">Ingrese altura de las luminarias (metros) </h4>
             <input type="text" oninput="validarNumeroReal(this)" id="luminaria" class="input-name" placeholder="Altura luminarias">
 
@@ -59,64 +65,35 @@
                 </button>
                 <button class="button-draw" onclick="borrarTodo()">
                     <img src="/img/remove.svg" alt="Ícono para calcular">Borrar Todo
-                </button>    
-            </section>            
+                </button>
+            </section>
         </div>
 
         <div class="contenedor__derecha">
-                <div class="contenedor-imagen">
-                    <img src="./img/puntosMuestreo.png" class="imagen" alt="Fórmula para obtener punto de muestreo">
+                <div class="formula-container">
+                    <p class="formula-display">
+                        $$\text{Índice del local} = \frac{\text{Ancho} \times \text{Largo}}{\text{Altura luminaria} \times (\text{Ancho} + \text{Largo})}$$
+                    </p>
+                    <p class="formula-display">
+                        $$\text{N° mínimo de puntos} = (x+2)^2$$
+                    </p>
+                    <p class="formula-nota">
+                        Donde <em>"x"</em> es el valor del índice de local redondeado al entero superior,
+                        excepto para todos los valores de <em>"Índice de local"</em> iguales o mayores que 3,
+                        el valor de x es 4.
+                    </p>
                 </div>
                 <div class="contenedor-texto">
                     <h3 class="titulo-output">RESULTADOS </h3>
-                    <p1 class="indice" id="indice">El índice del local es:</p1>
-                    <p2 class="resultado" id="resultado">Puntos mínimos de medición:</p2>
+                    <span class="indice" id="indice">El índice del local es:</span>
+                    <span class="resultado" id="resultado">Puntos mínimos de medición:</span>
                 </div>
-            
+
         </div>
-        
+
     </main>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-column footer-left">
-              <a href="https://isp65-sfe.infd.edu.ar/sitio/" target="_blank">
-                <img src="/img/logoISP65.png" class="logo" alt="Logo ISP 65">
-              </a>
-            </div>
-        
-            <div class="footer-column footer-center">
-              <p>© 2025 HERRAMIENTAS App Web | <a href="#" id="openModal">Acerca de</a></p>
-            </div>
-        
-            <div class="footer-column footer-right">
-                <p>I.S.P. N° 65 Amelia Díaz</p>
-                <p>San Vicente, Prov. Santa Fe</p>             
-                <div class="social-icons">
-                    <a href="https://api.whatsapp.com/send?phone=543492676823" target="_blank">
-                        <img src="/img/wa.png" alt="WhatsApp">
-                    </a>
-                    <a href="https://www.instagram.com/isp65sanvicente?igsh=MTJhbjB4ZnZxbW1qZA==" target="_blank">
-                        <img src="/img/instagram.png" alt="Instagram">
-                    </a>
-                </div>
-
-            </div>
-          </div>
-    </footer>
-
-    <div id="modalAcerca" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Acerca de</h2>
-            <p class="text__modal">Esta es una aplicación web de código abierto bajo la
-                <a href="LICENSE.html" target="_blank">licencia MIT.</a>
-            </p>
-            <p class="text__modal">Desarrollado por: Ing. Jorge Mendoza</p>
-            <p class="text__modal">Versión 1.2.0 - 2025</a></p>
-        </div>
-    </div>
-
+	<script src="/scripts/footer.js"></script>
     <script src="./scripts/app.js"></script>
 
 

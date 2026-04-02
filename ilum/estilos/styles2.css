@@ -1,4 +1,3 @@
-
 /*Título de la aplicación*/
 h1{
     font-family: Montserrat;
@@ -6,6 +5,10 @@ h1{
     font-size: 2.1rem;
 }
 
+.button-camara img {
+    width: 2rem;
+    height: 2rem;
+}
 
 
 /* --- TÍTULOS --- */
@@ -32,8 +35,8 @@ td {
   border: 1px solid var(--color-borde);
   padding: 1.5px;
   text-align: center;
-  width: 2.5rem; /* Ancho base de las celdas no editables (mantenido) */
-  font-size: 0.875rem; /* Tamaño de fuente más pequeño */
+  width: 2.5rem;
+  font-size: 0.875rem;
   font-family: Montserrat, sans-serif;
   font-weight: bold;
 }
@@ -47,7 +50,7 @@ td:nth-child(odd) {
 /* Estilos para celdas editables */
 td:nth-child(even) {
   background-color: var(--color-input-fondo);
-  width: 7rem; /* Doble del ancho de las celdas no editables */
+  width: 7rem;
   text-align: center;
   background-color: var(--color-input-fondo);
   cursor: pointer;
@@ -64,23 +67,19 @@ tr {
   padding: 0%;
 }
 
-  
-
-/* --- TÍTULOS --- */
-
-
 /* Contenedor principal */
 .contenedor-principal {
   background-color: var(--color-secundario);
-  flex: 1; /* Hace que ocupe el espacio restante */
+  flex: 1;
   display: flex;
   justify-content: space-evenly;
   border-radius: 4rem 4rem 0 0;
   border: 1px solid var(--color-borde);
   width: 100%;
   padding: 0rem;
-  gap: 0rem;
+  padding-bottom: 1rem
 }
+
 /* Contenedores laterales */
 .contenedor__izquierda {
   width: 48%;
@@ -88,7 +87,7 @@ tr {
   flex-direction: column;
   margin-left: 6rem;
   margin-top: 0.5rem;
-  gap: 0.70rem;
+  gap: 0.4rem;
 }
 
 .titulo-input-mediciones {
@@ -102,6 +101,7 @@ tr {
   position:relative;
   padding: 0px 0px 0px 0px;
 }
+
 .button-container {
   display: flex;
   width: 15rem;
@@ -112,20 +112,24 @@ tr {
   border-radius: 1.56;
   gap: 0.94;
 }
+
 /* Estilos de botón */
+.button-camara img {
+    width: 2rem;
+    height: 2rem;
+}
 
-
-.seccion2{
+/* ===== CAMBIO 1: width 70% igual que la tabla ===== */
+.seccion2 {
   display: flex;
   flex-direction: column;
-  justify-content:space-around;
-  width: 100%;
-  height: 10%;
+  justify-content: flex-start;
+  width: 70%;
   border: 0px solid var(--color-borde);
   background-color: var(--color-secundario);
-  position: relative;
-  top: -0.5rem;
+  gap: 4px;
 }
+
 .titulo-instrucciones{
   font-family: Montserrat;
   font-weight: Medium;
@@ -134,6 +138,7 @@ tr {
   padding: 2px;
   margin-top: 0.5rem;
 }
+
 .botonera {
   display: flex;
   gap: 3px;
@@ -149,6 +154,7 @@ tr {
   margin-right: 6rem;
   margin-top: 2rem;
 }
+
 .titulo-input-nivel{
   font-family: Montserrat;
   font-weight: medium;
@@ -156,11 +162,15 @@ tr {
   color: var(--color-texto);
   margin-top: 0.5rem;
 }
+
+/* ===== CAMBIO 2: input-name hereda ancho del padre ===== */
 .input-name {
   background-color:var(--color-input-fondo);
   color: var(--color-input);
   opacity: 1;
-  width: 12.125rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 0.3125rem;
   border: 0px solid var(--color-borde);
   border-radius: 0.9375rem;
@@ -168,11 +178,12 @@ tr {
   font-family: Montserrat;
   font-weight: Bold;
   text-align: center;
-
 }
+
 .input-name:hover {
   background-color:var(--color-resaltado);
 }
+
 .titulo-output{
   padding: 0.3125rem 0.625rem;
   font-family: Montserrat;
@@ -181,6 +192,7 @@ tr {
   color: var(--color-texto);
   align-self:center;
 }
+
 .titulo-output-mediciones{
   padding: 0px 0px;
   font-family: Montserrat;
@@ -189,6 +201,7 @@ tr {
   color: var(--color-texto);
   position:relative;
 }
+
 .titulo-iluminacion-general{
   font-family: "Montserrat", bold;
   font-size: 1.25rem;
@@ -196,134 +209,196 @@ tr {
   color:var(--color-cumple);
   align-items:flex-start;
   padding: 0px 0px 0px 0px;
- }
+}
 
+/* --- RESPONSIVIDAD --- */
 
- 
- /* --- RESPONSIVIDAD --- */ 
- 
- @media (max-width: 768px) {
-   /* Ajustes para el header */
-   header {
+@media (max-width: 768px) {
+  header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     height: auto;
     padding: 1rem;
     flex-wrap: nowrap;
-}  
+  }
 
-.logo {
+  .logo {
     height: 4rem;
-}
+  }
 
-h1 {
+  h1 {
     font-size: 1.5rem;
-}
+  }
 
-nav {
+  nav {
     text-align: right;
-}
+  }
 
-/* Ajustes para el menú */
-.menu {
-  display: none;
-  flex-direction: column;
-  background-color: var(--color-header-fondo);
-  position: absolute;
-  right: 0;
-  top: 60px;
-  width: 150px;
-  padding: 1rem;
-  border-radius: 5px;
-}
+  .menu {
+    display: none;
+    flex-direction: column;
+    background-color: var(--color-header-fondo);
+    position: absolute;
+    right: 0;
+    top: 60px;
+    width: 150px;
+    padding: 1rem;
+    border-radius: 5px;
+  }
 
-.menu a {
+  .menu a {
     display: block;
     padding: 0.5rem 0;
     color: var(--color-header-texto);
     text-decoration: none;
-}
+  }
 
-.menu.activo {
+  .menu.activo {
     display: flex;
-}
+  }
 
-.menu-hamburguesa {
+  .menu-hamburguesa {
     display: flex;
     flex-direction: column;
     gap: 5px;
     cursor: pointer;
-}
+  }
 
-.menu-hamburguesa div {
+  .menu-hamburguesa div {
     width: 30px;
     height: 4px;
     background-color: var(--color-header-texto);
     border-radius: 2px;
-}
- 
-  /* Ajustes para el main */
-   /* Ajustes para el main content (contenedor principal) */
-   .main-content .contenedor-principal { /* Especificamos que solo afecte al contenedor principal dentro de main.main-content */
+  }
+
+  .main-content .contenedor-principal {
     width: 100%;
     flex-direction: column;
     align-items: center;
     margin: 1rem auto;
     padding: 1rem;
     border-radius: 2rem 2rem 0 0;
-}
+  }
 
-.main-content .section-title { /* Especificamos que solo afecte al section-title dentro de main.main-content */
+  .main-content .section-title {
     font-size: 1.5rem;
     text-align: center;
-}
+  }
 
-.main-content .contenedor__derecha,  /* Especificamos que solo afecte a contenedor__derecha dentro de main.main-content */
-.main-content .contenedor__izquierda { /* Especificamos que solo afecte a contenedor__izquierda dentro de main.main-content */
+  .main-content .contenedor__derecha,
+  .main-content .contenedor__izquierda {
     width: 100%;
     margin: 1rem 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+  }
 
-.main-content table { /* Especificamos que solo afecte a table dentro de main.main-content */
+  .main-content table {
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-}
+  }
 
-.main-content .seccion2 { /* Especificamos que solo afecte a seccion2 dentro de main.main-content */
+  .main-content .seccion2 {
     width: 90%;
     align-items: center;
-}
+  }
 
-.main-content .titulo-input-nivel, /* Especificamos que solo afecte a titulo-input-nivel dentro de main.main-content */
-.main-content .titulo-input-mediciones, /* Especificamos que solo afecte a titulo-input-mediciones dentro de main.main-content */
-.main-content .titulo-output, /* Especificamos que solo afecte a titulo-output dentro de main.main-content */
-.main-content .titulo-instrucciones { /* Especificamos que solo afecte a titulo-instrucciones dentro de main.main-content */
+  .main-content .titulo-input-nivel,
+  .main-content .titulo-input-mediciones,
+  .main-content .titulo-output,
+  .main-content .titulo-instrucciones {
     text-align: center;
-}
+  }
 
-.main-content .input-name { /* Especificamos que solo afecte a input-name dentro de main.main-content */
+  .main-content .input-name {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
-}
+  }
 
-.main-content .titulo-output-mediciones, /* Especificamos que solo afecte a titulo-output-mediciones dentro de main.main-content */
-.main-content .titulo-iluminacion-general { /* Especificamos que solo afecte a titulo-iluminacion-general dentro de main.main-content */
+  .main-content .titulo-output-mediciones,
+  .main-content .titulo-iluminacion-general {
     text-align: center;
     width: 90%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .botonera {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
 }
 
-.botonera {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
+
+.input-foto-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 4px;
 }
+
+/* operador más chico en mobile */
+@media (max-width: 768px) {
+    #operador {
+        flex: 0.7;
+    }
+}
+
+/* juntar botones */
+.button-camara + .button-camara {
+    margin-left: -6px;
+}
+
+.input-foto-container .input-name {
+    flex: 1;
+    min-width: 0;
+}
+
+/* MOBILE: achica y centra como el resto */
+@media (max-width: 768px) {
+    .input-foto-container {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+/* junta botones */
+.button-camara + .button-camara {
+    margin-left: -6px;
+}
+
+
+.button-camara {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.button-camara:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.button-camara img {
+    width: 1.8rem;
+    height: 1.8rem;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+
+/* Ajuste para que el input lugar ocupe el espacio restante */
+.input-foto-container .input-name {
+    flex: 1;
+    min-width: 0;
 }

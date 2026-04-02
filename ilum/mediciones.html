@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medición de Iluminación</title>
+    <title>Iluminación — Mediciones</title>
     <link rel="stylesheet" href="/estilos/colores.css">
     <link rel="stylesheet" href="/estilos/general.css">
     <link rel="stylesheet" href="./estilos/styles2.css">
@@ -13,26 +13,26 @@
     <script src="/lib/docxtemplater.min.js"></script>
     <script src="/lib/FileSaver.min.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EEXJXBJBQB"></script>
-	<script>
-  	    window.dataLayer = window.dataLayer || [];
-  	    function gtag(){dataLayer.push(arguments);}
-  	    gtag('js', new Date());
-  	    gtag('config', 'G-EEXJXBJBQB');
-	</script>
-
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-EEXJXBJBQB');
+    </script>
+    <meta name="description" content="Ingresa tus mediciones de iluminacion en lux y calcula Iluminación promedio, uniformidad y cumplimiento normativo. Genera tu informe Word personalizado.">
+    <link rel="canonical" href="https://higseg.ar/ilum/mediciones.html">
 </head>
 <body>
     <main class="main-content">
         <header>
             <a href="/index.html">
-                <img src="/img/Logo_Visp.png" class="logo" alt="Logo VISP">
-              
+                <img src="/img/Logo_Visp.webp" class="logo" alt="Logo VISP">
             </a>
             <h1>ILUMINACIÓN</h1>
             <nav>
                 <ul class="menu">
                     <li><a href="index.html">Información</a></li>
-                    <li><a href="puntosmedicion.html" >Puntos de medición</a></li>
+                    <li><a href="puntosmedicion.html">Puntos de medición</a></li>
                     <li><a href="mediciones.html" class="active">Mediciones</a></li>
                     <li><a href="localizada.html">Localizada</a></li>
                 </ul>
@@ -44,21 +44,49 @@
                 </div>
             </nav>
         </header>
+
         <h2 class="section-title">MEDICIONES</h2>
+
         <section class="contenedor-principal">
             <div class="contenedor__izquierda">
+                <section class="seccion2">
+					<h4 class="titulo-instrucciones">Lugar de medición:</h4>
+					<div>
+						<input type="text" id="lugar" class="input-name" placeholder="Lugar medición">
+					</div>
+					<h4 class="titulo-instrucciones">Operador:</h4>
+					<div class="input-foto-container">
+						<input type="text" id="operador" class="input-name" placeholder="Nombre del operador">
+
+						<button class="button-camara" id="btn-foto-croquis"
+								onclick="document.getElementById('fotoCroquis').click()"
+								title="Foto croquis con puntos de medición">
+							<img src="img/camara.svg" alt="Croquis">
+						</button>
+
+						<button class="button-camara" id="btn-foto-local"
+								onclick="document.getElementById('fotoLocal').click()"
+								title="Foto vista general del local">
+							<img src="img/camara.svg" alt="Local">
+						</button>
+
+						<input type="file" id="fotoCroquis" accept="image/*" capture="environment" hidden>
+						<input type="file" id="fotoLocal" accept="image/*" capture="environment" hidden>
+					</div>
+                </section>
+
                 <h4 class="titulo-instrucciones">Puntos Medidos en lux</h4>
                 <table id="tabla">
-                    <tbody>
-                        <!-- Se generan 10 filas con 8 columnas -->
-                    </tbody>
+                    <tbody></tbody>
                 </table>
-                
+
                 <section class="seccion2">
                     <h4 class="titulo-instrucciones">Introduce el nivel de iluminación requerido:</h4>
-                    <input type="text"  id="nivel-iluminacion-requerido" class="input-name" oninput="validarNumeroReal(this)" placeholder="Nivel iluminacion">
+                    <input type="text" id="nivel-iluminacion-requerido" class="input-name" 
+                           oninput="validarNumeroReal(this)" placeholder="Nivel iluminacion">
                 </section>
             </div>
+
             <div class="contenedor__derecha">
                 <section class="botonera">
                     <button class="button-draw" onclick="leerTabla()">
@@ -67,8 +95,53 @@
                     <button class="button-draw" onclick="borrarTabla()">
                         <img src="/img/remove.svg" alt="ícono para borrar todo">Borrar Todo
                     </button>
-                    <!-- Botón y Modal para Generar Informe -->
                     <button class="button-draw" id="boton-informeBo" onclick="informeResultado()">Generar Informe</button>
+
+                    <!-- Botón mail -->
+
+					<div id="modalMail" class="modal">
+						<div class="modal-content">
+							<span class="close" id="cerrarModalMail">×</span>
+							<h2>Enviar por Mail</h2>
+
+							<div class="plantilla-opciones">
+								<p class="titulo-opciones">Destinatario:</p>
+								<input type="email"
+									   id="mailDestinatario"
+									   class="input-name"
+									   placeholder="correo@ejemplo.com"
+									   style="width:100%; margin-bottom: 1rem;">
+
+								<p class="titulo-opciones">Plantilla del informe:</p>
+								<label>
+									<input type="radio" name="plantillaMailSeleccion" value="default" checked>
+									Usar Plantilla Predeterminada
+								</label>
+								<label>
+									<input type="radio" name="plantillaMailSeleccion" value="subir">
+									Subir mi Plantilla (.docx):
+								</label>
+								<input type="file"
+									   id="plantillaMailUpload"
+									   accept=".docx"
+									   style="display: none;">
+								<p style="margin-top: 10px; font-size: 0.85em;">
+									¿Cómo crear tu plantilla?
+									<a href="./plantillas/Referencia_Marcadores.docx"
+									   download
+									   style="color: #2E75B6; text-decoration: underline;">
+										Descargar referencia de marcadores ↓
+									</a>
+								</p>
+							</div>
+
+							<div class="modal-botones">
+								<button class="button-draw" id="boton-enviarModalMail">Enviar</button>
+								<button class="button-draw" id="boton-cancelarModalMail">Cancelar</button>
+							</div>
+						</div>
+					</div>
+
                     <div id="modalPlantilla" class="modal">
                         <div class="modal-content">
                             <span class="close" id="cerrarModalPlantilla">×</span>
@@ -82,6 +155,12 @@
                                     <input type="radio" name="plantillaModalSeleccion" value="subir"> Subir mi Plantilla (.docx):
                                 </label>
                                 <input type="file" id="plantillaModalUpload" accept=".docx" style="display: none;">
+                                <p style="margin-top: 10px; font-size: 0.85em;">
+                                    ¿Cómo crear tu plantilla?
+                                    <a href="./plantillas/Referencia_Marcadores.docx" download style="color: #2E75B6; text-decoration: underline;">
+                                        Descargar referencia de marcadores ↓
+                                    </a>
+                                </p>
                             </div>
                             <div class="modal-botones">
                                 <button class="button-draw" id="boton-generarInformeModal">Generar Informe</button>
@@ -89,57 +168,62 @@
                             </div>
                         </div>
                     </div>
-                </section>    
+                </section>
+				<!-- Mensaje de envío de mail -->
+				<p id="estado-envio" style="display:none; font-weight:bold; text-align:center;">
+					Generando informe y enviando mail...
+				</p>
                 <h3 class="titulo-output">RESULTADOS</h3>
-                <p class="titulo-output-mediciones">Cantidad de mediciones realizadas: <span class="resultado-mediciones" id="nroMediciones">-</span></p>
-                <p class="titulo-output-mediciones">Promedio (Emedio) en lux: <span class="resultado-mediciones" id="emedio">-</span></p>
-                <p class="titulo-output-mediciones">Valor mínimo (Emínimo) en lux: <span class="resultado-mediciones" id="minimo">-</span></p>
+                <p class="titulo-output-mediciones">
+                    Cantidad de mediciones realizadas: 
+                    <span class="resultado-mediciones" id="nroMediciones">-</span>
+                </p>
+                <p class="titulo-output-mediciones">
+                    Promedio (Emedio) en lux: 
+                    <span class="resultado-mediciones" id="emedio">-</span>
+                </p>
+                <p class="titulo-output-mediciones">
+                    Valor mínimo (Emínimo) en lux: 
+                    <span class="resultado-mediciones" id="minimo">-</span>
+                </p>
                 <p class="titulo-iluminacion-general" id="ilum-general"></p>
                 <p class="titulo-iluminacion-general" id="uniformidad"></p>
-                   
+
+                <!-- Sección ENVIAR — aparece después de calcular -->
+                <div id="seccion-enviar" style="display:none; margin-top: 1.5rem; text-align: center;">
+                    <h3 class="titulo-output">ENVIAR</h3>
+
+                    <button class="button-draw" onclick="compartirWhatsApp()">
+                        <img src="/img/wa.webp" alt="WhatsApp" style="width:1.2rem; height:1.2rem; margin-right:0.3rem;"> WhatsApp
+                    </button>
+
+                    <!-- Mail — preparado para implementar con SMTP Zoho  -->
+					<button class="button-draw" id="boton-mail-seccion" onclick="">
+						<img src="/img/mail.svg" alt="Mail" style="width:1.2rem; height:1.2rem; margin-right:0.3rem;"> Mail
+					</button>
+                    
+                </div>
+
             </div>
         </section>
-        <footer>
-            <div class="footer-container">
-                <div class="footer-column footer-left">
-                  <a href="https://isp65-sfe.infd.edu.ar/sitio/" target="_blank">
-                    <img src="/img/logoISP65.png" class="logo" alt="Logo ISP 65">
-                  </a>
-                </div>
-            
-                <div class="footer-column footer-center">
-                  <p>© 2025 HERRAMIENTAS App Web | <a href="#" id="openModal">Acerca de</a></p>
-                </div>
-            
-                <div class="footer-column footer-right">
-                    <p>I.S.P. N° 65 Amelia Díaz</p>
-                    <p>San Vicente, Prov. Santa Fe</p>             
-                    <div class="social-icons">
-                    <a href="https://www.facebook.com" target="_blank">
-                      <img src="/img/facebook.png" alt="Facebook">
-                    </a>
-                    <a href="https://www.instagram.com" target="_blank">
-                      <img src="/img/instagram.png" alt="Instagram">
-                    </a>
-                  </div>
-    
-                </div>
-              </div>
-        </footer>
-        <!-- Modal de "Acerca de" -->
-        <div id="modalAcerca" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Acerca de</h2>
-                <p class="text__modal">Esta es una aplicación web de código abierto bajo la
-                    <a href="LICENSE.html" target="_blank">licencia MIT.</a>
-                </p>
-                <p class="text__modal">Desarrollado por: Ing. Jorge Mendoza</p>
-                <p class="text__modal">Versión 1.2.0 - 2025</a></p>
-            </div>
-        </div>
-    
-    </main>
+	
+	<div id="estado-envio" style="
+			display:none;
+			position:fixed;
+			bottom:20px;
+			left:50%;
+			transform:translateX(-50%);
+			background:#333;
+			color:#fff;
+			padding:10px 20px;
+			border-radius:8px;
+			font-family:Montserrat;
+			z-index:9999;
+		">
+    Generando informe y enviando mail...
+	</div>
+
+	<script src="/scripts/footer.js"></script>
     <script src="./scripts/app.js"></script>
     <script src="./scripts/informe.js"></script>
 </body>

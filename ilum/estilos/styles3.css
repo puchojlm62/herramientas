@@ -1,7 +1,7 @@
 /*Título de la aplicación*/
 h1{
     font-family: Montserrat;
-    font-weight: SemiBold;
+    font-weight: 600;
     font-size: 2.1rem;
 }
 
@@ -21,9 +21,9 @@ h1{
 table {
   width: 80%;
   border-collapse: collapse;
-  table-layout: fixed; /* Importante para controlar el ancho */
+  table-layout: fixed;
   align-self: center;
-  padding-top: 3rem;
+  padding-top: 0;      
   position: relative;
 }
 
@@ -39,21 +39,22 @@ th, td {
   border-radius: 2px 2px 2px 2px;
   font-size: 1.125rem;
   font-family: Montserrat;
-  font-weight: Bold;
+  font-weight: 700;
   }
 /* Contenedor principal */
 /* El main debe ocupar todo el espacio disponible */
 .contenedor-principal {
   background-color: var(--color-secundario);
-  flex: 1; /* Hace que ocupe el espacio restante */
+  flex: 1;
   display: flex;
   justify-content: space-evenly;
   border-radius: 4rem 4rem 0 0;
   border: 0px solid var(--color-borde);
   width: 100%;
-  padding: 0rem;
+  padding: 0rem 0rem 2rem 0rem;
   gap: 0rem;
 }
+
 .contenedor-principal::after {
   content: "";
   display: table;
@@ -83,7 +84,7 @@ th, td {
  }
   .titulo-tabla{
   font-family: Montserrat;
-  font-weight: SemiBold;
+  font-weight: 600;
   font-size: 1.75rem;
   color: var(--color-texto);
   align-self: center;
@@ -100,7 +101,7 @@ th, td {
   border-radius: 0.9375rem;
   font-size: 1.25rem;
   font-family: Montserrat;
-  font-weight: Bold;
+  font-weight: 700;
   text-align: center;
 }
 .input-name:hover {
@@ -114,33 +115,31 @@ th, td {
 }
 
 /* comienzo de la sección2*/
-.seccion2{
+.seccion2 {
   display: flex;
   flex-direction: row;
-  justify-content:space-around;
+  justify-content: space-around;
   align-self: center;
   width: 60%;
-  height: 10%;
   border: 0px solid var(--color-borde);
   background-color: var(--color-secundario);
-  position: relative;
-  top: 0rem;
+  margin-top: 1rem; /* espacio respecto a la sección anterior */
+  padding-bottom: 1rem;
 }
-
-
 
 
 /* FIN Contenedor izquierda */
 /*Contenedr derecho*/
 .contenedor__derecha {
-  width: 50%; /* Ocupa la mitad del contenedor principal */
-  background-color: rgb(233, 226, 245); /*rgb(66, 58, 58);*/
+  width: 50%;
+  background-color: rgb(233, 226, 245);
   border: 0px solid var(--color-borde);
   display: flex;
   flex-direction: column;
-  margin-top: 2rem;
-  margin-right:  5rem;
- }
+  margin-top: 1rem;      /* ← reducí el margin-top para subir el gráfico */
+  margin-right: 5rem;
+  margin-bottom: 0rem;   /* ← agregá esto para separar del footer */
+}
  .seccion3{
     height: 95%;
     width: auto;
@@ -151,7 +150,7 @@ th, td {
  .titulo-grafico{
   padding: 0.3125rem 0.625rem;
   font-family: Montserrat;
-  font-weight: SemiBold;
+  font-weight: 600;
   font-size: 1.75rem;
   color: var(--color-texto);
   align-self:center;

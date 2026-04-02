@@ -13,9 +13,9 @@ function calcularTodoHML() {
     let diferencia = dbC - dbA;
     let atenuacion;
     if (diferencia <= 2) {
-        atenuacion = M - (H - M) / 4 * (diferencia - 2);
+        atenuacion = M - ((H - M) / 4) * (diferencia - 2);
     } else {
-        atenuacion = M - (M - L) / 8 * (diferencia - 2);
+        atenuacion = M - ((M - L) / 8) * (diferencia - 2);
     }
 
     let dbA_protegido = dbA - atenuacion;
@@ -24,44 +24,54 @@ function calcularTodoHML() {
     }
 
     const dbA_protegido_fixed = dbA_protegido.toFixed(1);
-    document.querySelector("#filaRuidoAtenuadoHML input").value = dbA_protegido_fixed;
+    document.querySelector("#filaRuidoAtenuadoHML input").value =
+        dbA_protegido_fixed;
+
+    const elIndice = document.getElementById("indice-proteccionHML");
+    elIndice.classList.remove(
+        "indice-sobreprotegido",
+        "indice-buena",
+        "indice-aceptable",
+        "indice-insuficiente",
+    );
 
     let indiceProteccion;
-    let indiceProteccionColor;
     if (dbA_protegido < 70.0) {
         indiceProteccion = "SOBREPROTEGIDO";
-        indiceProteccionColor = "orange";
+        elIndice.classList.add("indice-sobreprotegido");
     } else if (dbA_protegido < 80.0) {
         indiceProteccion = "BUENA";
-        indiceProteccionColor = "lightgreen";
+        elIndice.classList.add("indice-buena");
     } else if (dbA_protegido > 85.0) {
         indiceProteccion = "INSUFICIENTE";
-        indiceProteccionColor = "red";
+        elIndice.classList.add("indice-insuficiente");
     } else {
         indiceProteccion = "ACEPTABLE";
-        indiceProteccionColor = "lightyellow";
+        elIndice.classList.add("indice-aceptable");
     }
 
-    document.getElementById("indice-proteccionHML").style.color = "black";
-    document.getElementById("indice-proteccionHML").textContent = indiceProteccion;
-    document.getElementById("indice-proteccionHML").style.backgroundColor = indiceProteccionColor;
+    elIndice.textContent = indiceProteccion;
 
-    // Guardar los resultados del cálculo.
-    sessionStorage.setItem("hml_dbA_protegido", dbA_protegido_fixed); // Clave sessionStorage específica de HML
-    sessionStorage.setItem("hml_indiceProteccion", indiceProteccion); // Clave sessionStorage específica de HML
-    sessionStorage.setItem("hml_indiceProteccionColor", indiceProteccionColor); // Clave sessionStorage específica de HML
+    sessionStorage.setItem("hml_dbA_protegido", dbA_protegido_fixed);
+    sessionStorage.setItem("hml_indiceProteccion", indiceProteccion);
+    sessionStorage.setItem("hml_indiceProteccionClase", elIndice.className);
 }
 
-function borrarTodoHML() { // Renombrado a borrarTodoHML()
-    const inputs = document.querySelectorAll('input');
-    inputs.forEach(input => {
-        input.value = '';
+function borrarTodoHML() {
+    document.querySelectorAll("input").forEach((input) => {
+        input.value = "";
     });
     document.querySelector("#cbox3").checked = false;
-    document.getElementById("indice-proteccionHML").textContent = "";
-    document.getElementById("indice-proteccionHML").style.backgroundColor = "transparent";
 
-    // Limpiar sessionStorage (claves sessionStorage específicas de HML)
+    const elIndice = document.getElementById("indice-proteccionHML");
+    elIndice.textContent = "";
+    elIndice.classList.remove(
+        "indice-sobreprotegido",
+        "indice-buena",
+        "indice-aceptable",
+        "indice-insuficiente",
+    );
+
     sessionStorage.removeItem("hml_protectorAuditivo");
     sessionStorage.removeItem("hml_H");
     sessionStorage.removeItem("hml_M");
@@ -72,49 +82,92 @@ function borrarTodoHML() { // Renombrado a borrarTodoHML()
     sessionStorage.removeItem("hml_cbox3");
     sessionStorage.removeItem("hml_dbA_protegido");
     sessionStorage.removeItem("hml_indiceProteccion");
-    sessionStorage.removeItem("hml_indiceProteccionColor"); // Remove the color
+    sessionStorage.removeItem("hml_indiceProteccionClase");
 }
 
 const checkbox = document.getElementById("cbox3");
-
-checkbox.addEventListener('change', function () {
+checkbox.addEventListener("change", function () {
     calcularTodoHML();
-    saveAllDataHML(); // Usar saveAllDataHML() para guardar con claves específicas de HML
+    saveAllDataHML();
 });
 
-// Guardar los datos en sessionStorage (claves sessionStorage específicas de HML)
 function saveAllDataHML() {
-    sessionStorage.setItem("hml_protectorAuditivo", document.getElementById("protector-auditivo").value); // Clave sessionStorage específica de HML
-    sessionStorage.setItem("hml_H", document.querySelector("#filaH input").value); // Clave sessionStorage específica de HML
-    sessionStorage.setItem("hml_M", document.querySelector("#filaM input").value); // Clave sessionStorage específica de HML
-    sessionStorage.setItem("hml_L", document.querySelector("#filaL input").value); // Clave sessionStorage específica de HML
-    sessionStorage.setItem("hml_lugarRuido", document.getElementById("ruido").value); // Clave sessionStorage específica de HML
-    sessionStorage.setItem("hml_dbC", document.querySelector("#dbC input").value); // Clave sessionStorage específica de HML
-    sessionStorage.setItem("hml_dbA", document.querySelector("#dbA input").value); // Clave sessionStorage específica de HML
-    sessionStorage.setItem("hml_cbox3", document.querySelector("#cbox3").checked); // Clave sessionStorage específica de HML
+    sessionStorage.setItem(
+        "hml_protectorAuditivo",
+        document.getElementById("protector-auditivo").value,
+    );
+    sessionStorage.setItem(
+        "hml_H",
+        document.querySelector("#filaH input").value,
+    );
+    sessionStorage.setItem(
+        "hml_M",
+        document.querySelector("#filaM input").value,
+    );
+    sessionStorage.setItem(
+        "hml_L",
+        document.querySelector("#filaL input").value,
+    );
+    sessionStorage.setItem(
+        "hml_lugarRuido",
+        document.getElementById("ruido").value,
+    );
+    sessionStorage.setItem(
+        "hml_dbC",
+        document.querySelector("#dbC input").value,
+    );
+    sessionStorage.setItem(
+        "hml_dbA",
+        document.querySelector("#dbA input").value,
+    );
+    sessionStorage.setItem(
+        "hml_cbox3",
+        document.querySelector("#cbox3").checked,
+    );
 }
 
-// Agregar event listeners a los inputs
-document.getElementById("protector-auditivo").addEventListener("input", saveAllDataHML); // Usar saveAllDataHML()
-document.querySelector("#filaH input").addEventListener("input", saveAllDataHML); // Usar saveAllDataHML()
-document.querySelector("#filaM input").addEventListener("input", saveAllDataHML); // Usar saveAllDataHML()
-document.querySelector("#filaL input").addEventListener("input", saveAllDataHML); // Usar saveAllDataHML()
-document.getElementById("ruido").addEventListener("input", saveAllDataHML); // Usar saveAllDataHML()
-document.querySelector("#dbA input").addEventListener("input", saveAllDataHML); // Usar saveAllDataHML()
-document.querySelector("#dbC input").addEventListener("input", saveAllDataHML); // Usar saveAllDataHML()
+document
+    .getElementById("protector-auditivo")
+    .addEventListener("input", saveAllDataHML);
+document
+    .querySelector("#filaH input")
+    .addEventListener("input", saveAllDataHML);
+document
+    .querySelector("#filaM input")
+    .addEventListener("input", saveAllDataHML);
+document
+    .querySelector("#filaL input")
+    .addEventListener("input", saveAllDataHML);
+document.getElementById("ruido").addEventListener("input", saveAllDataHML);
+document.querySelector("#dbA input").addEventListener("input", saveAllDataHML);
+document.querySelector("#dbC input").addEventListener("input", saveAllDataHML);
 
-// Cargar los valores de sessionStorage al cargar la página
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById("protector-auditivo").value = sessionStorage.getItem("hml_protectorAuditivo") || ""; // Clave sessionStorage específica de HML
-    document.querySelector("#filaH input").value = sessionStorage.getItem("hml_H") || ""; // Clave sessionStorage específica de HML
-    document.querySelector("#filaM input").value = sessionStorage.getItem("hml_M") || ""; // Clave sessionStorage específica de HML
-    document.querySelector("#filaL input").value = sessionStorage.getItem("hml_L") || ""; // Clave sessionStorage específica de HML
-    document.getElementById("ruido").value = sessionStorage.getItem("hml_lugarRuido") || ""; // Clave sessionStorage específica de HML
-    document.querySelector("#dbA input").value = sessionStorage.getItem("hml_dbA") || ""; // Clave sessionStorage específica de HML
-    document.querySelector("#dbC input").value = sessionStorage.getItem("hml_dbC") || ""; // Clave sessionStorage específica de HML
-    document.getElementById("cbox3").checked = sessionStorage.getItem("hml_cbox3") === "true"; // Clave sessionStorage específica de HML
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("protector-auditivo").value =
+        sessionStorage.getItem("hml_protectorAuditivo") || "";
+    document.querySelector("#filaH input").value =
+        sessionStorage.getItem("hml_H") || "";
+    document.querySelector("#filaM input").value =
+        sessionStorage.getItem("hml_M") || "";
+    document.querySelector("#filaL input").value =
+        sessionStorage.getItem("hml_L") || "";
+    document.getElementById("ruido").value =
+        sessionStorage.getItem("hml_lugarRuido") || "";
+    document.querySelector("#dbA input").value =
+        sessionStorage.getItem("hml_dbA") || "";
+    document.querySelector("#dbC input").value =
+        sessionStorage.getItem("hml_dbC") || "";
+    document.getElementById("cbox3").checked =
+        sessionStorage.getItem("hml_cbox3") === "true";
 
-    document.querySelector("#filaRuidoAtenuadoHML input").value = sessionStorage.getItem("hml_dbA_protegido") || ""; // Clave sessionStorage específica de HML
-    document.getElementById("indice-proteccionHML").textContent = sessionStorage.getItem("hml_indiceProteccion") || ""; // Clave sessionStorage específica de HML
-    document.getElementById("indice-proteccionHML").style.backgroundColor = sessionStorage.getItem("hml_indiceProteccionColor") || "transparent"; // Clave sessionStorage específica de HML
+    document.querySelector("#filaRuidoAtenuadoHML input").value =
+        sessionStorage.getItem("hml_dbA_protegido") || "";
+
+    const elIndiceRestore = document.getElementById("indice-proteccionHML");
+    elIndiceRestore.textContent =
+        sessionStorage.getItem("hml_indiceProteccion") || "";
+    const storedClase = sessionStorage.getItem("hml_indiceProteccionClase");
+    if (storedClase) {
+        elIndiceRestore.className = storedClase;
+    }
 });

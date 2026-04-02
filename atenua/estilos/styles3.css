@@ -23,7 +23,7 @@ td:first-child { /* Selecciona el primer td de cada fila */
 
 h1{
     font-family: Montserrat;
-    font-weight: SemiBold;
+    font-weight: 600;
     font-size: 2.1rem;
 }
 
@@ -126,7 +126,7 @@ h3 {
 
 .titulo-input{
   font-family: Montserrat;
-  font-weight: SemiBold;
+  font-weight: 600;
   font-size: 1.25rem;
   color: var(--color-texto);
 }
@@ -140,7 +140,7 @@ h3 {
   border-radius: 0.9375rem;
   font-size: 1.25rem;
   font-family: Montserrat;
-  font-weight: Bold;
+  font-weight: 700;
   text-align: left;
 }
 .input-name:hover {
@@ -255,7 +255,7 @@ label{
 }
 .titulo-indice{
   font-family: Montserrat;
-  font-weight: SemiBold;
+  font-weight: 600;
   font-size: 1.25rem;
   color: var(--color-texto);
   height:55px ;
@@ -266,7 +266,7 @@ label{
   border-radius: 0.9375rem;
   font-size: 1.15rem;
   font-family: Montserrat;
-  font-weight: Bold;
+  font-weight: 700;
   padding: 0.6rem;
   width: 13rem;
   display: flex; /* Convierte el elemento en un contenedor flexible */
