@@ -21,6 +21,14 @@
     </script>
     <meta name="description" content="Calcula la atenuacion de protectores auditivos por el metodo SNR. Herramienta gratuita para higienistas argentinos.">
     <link rel="canonical" href="https://higseg.ar/atenua/snr.html">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#007bff">
+<link rel="apple-touch-icon" href="../img/favicon.webp">
+<link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/icon-180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="VispApp">
 </head>
 <body>
 
@@ -122,6 +130,8 @@
                     <img src="/img/remove.svg" alt="ícono para borrar todo">Borrar Todo
                 </button>
                 <button class="button-draw" id="boton-informe" onclick="abrirModalPlantillaSNR()">Generar Informe</button>
+
+                <!-- Modal Generar Informe (Word local) -->
                 <div id="modalPlantillaSNR" class="modal">
                     <div class="modal-content">
                         <span class="close" id="cerrarModalPlantillaSNR">×</span>
@@ -142,6 +152,64 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Sección ENVIAR — aparece después de calcular -->
+                <div id="seccion-enviar-atenua" style="display:none; margin-top: 1rem;">
+                    <h3 class="titulo-output">ENVIAR</h3>
+                    <button class="button-draw" onclick="compartirWhatsAppAtenua()">
+                        <img src="/img/wa.webp" alt="WhatsApp" style="width:1.2rem; height:1.2rem; margin-right:0.3rem;"> WhatsApp
+                    </button>
+                    <button class="button-draw" id="boton-mail-atenua">
+                        <img src="/img/mail.svg" alt="Mail" style="width:1.2rem; height:1.2rem; margin-right:0.3rem;"> Mail
+                    </button>
+                </div>
+
+                <!-- Modal Mail -->
+                <div id="modalMailAtenua" class="modal">
+                    <div class="modal-content">
+                        <span class="close" id="cerrarModalMailAtenua">×</span>
+                        <h2>Enviar por Mail</h2>
+                        <div class="plantilla-opciones">
+                            <p class="titulo-opciones">Destinatario:</p>
+                            <input type="email"
+                                   id="mailDestinatarioAtenua"
+                                   class="input-name"
+                                   placeholder="correo@ejemplo.com"
+                                   style="width:100%; margin-bottom: 1rem;">
+                            <p class="titulo-opciones">Plantilla del informe:</p>
+                            <label>
+                                <input type="radio" name="plantillaMailAtenuaSeleccion" value="default" checked>
+                                Usar Plantilla Predeterminada
+                            </label>
+                            <label>
+                                <input type="radio" name="plantillaMailAtenuaSeleccion" value="subir">
+                                Subir mi Plantilla (.docx):
+                            </label>
+                            <input type="file" id="plantillaMailAtenuaUpload" accept=".docx" style="display: none;">
+                        </div>
+                        <div class="modal-botones">
+                            <button class="button-draw" id="boton-enviarModalMailAtenua">Enviar</button>
+                            <button class="button-draw" id="boton-cancelarModalMailAtenua">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estado envío -->
+                <div id="estado-envio-atenua" style="
+                    display:none;
+                    position:fixed;
+                    bottom:20px;
+                    left:50%;
+                    transform:translateX(-50%);
+                    background:#333;
+                    color:#fff;
+                    padding:10px 20px;
+                    border-radius:8px;
+                    font-family:Montserrat;
+                    z-index:9999;">
+                    Generando informe y enviando mail...
+                </div>
+
             </div>
         </section>
 
@@ -151,6 +219,21 @@
     <script src="/scripts/footer.js"></script>
     <script src="./scripts/snr.js"></script>
     <script src="./scripts/appsnr.js"></script>
+    <script src="./scripts/informe_atenua.js"></script>
 
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      // Detecta si estamos en una subcarpeta para ajustar la ruta al sw.js en la raíz
+      const isSubfolder = window.location.pathname.includes('/ilum/') || 
+                          window.location.pathname.includes('/atenua/');
+      const swPath = isSubfolder ? '../sw.js' : './sw.js';
+      
+      navigator.serviceWorker.register(swPath)
+        .then(reg => console.log('VispApp: SW registrado con éxito desde ' + swPath))
+        .catch(err => console.error('VispApp: Error al registrar SW', err));
+    });
+  }
+</script>
 </body>
 </html>
