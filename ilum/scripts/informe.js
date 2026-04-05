@@ -1,133 +1,82 @@
 // ================================================================
-// informe.js — VISP Herramientas
+// informe.js — VISP Herramientas (v1.5.2)
+// Desarrollado por Jorge Mendoza
+// Adaptado para enviar_mail.php Universal
 // ================================================================
 
-// ================================================================
-// 1. MODAL GENERAR INFORME (descarga Word)
-// ================================================================
-
-function informeResultado() {
+function inicializarModalInforme() {
     const modalPlantilla = document.getElementById('modalPlantilla');
+    const botonInformeBo = document.getElementById('boton-informeBo');
     const botonGenerarInformeModal = document.getElementById('boton-generarInformeModal');
     const botonCancelarInformeModal = document.getElementById('boton-cancelarInformeModal');
+    const spanCerrarModalPlantilla = document.getElementById('cerrarModalPlantilla');
+    const radioSubirPlantillaModal = document.querySelector('input[name="plantillaModalSeleccion"][value="subir"]');
+    const plantillaModalUploadInput = document.getElementById('plantillaModalUpload');
 
-    window.abrirModalPlantilla = function() {
-        modalPlantilla.style.display = "block";
+    if (!modalPlantilla) return;
+
+    if (botonInformeBo) {
+        botonInformeBo.onclick = function() {
+            if (typeof validarCamposInforme === "function" && !validarCamposInforme()) return;
+            modalPlantilla.style.display = "block";
+        };
     }
 
-    function cerrarModal() {
-        modalPlantilla.style.display = "none";
+    const cerrar = () => { modalPlantilla.style.display = "none"; };
+    if (spanCerrarModalPlantilla) spanCerrarModalPlantilla.onclick = cerrar;
+    if (botonCancelarInformeModal) botonCancelarInformeModal.onclick = cerrar;
+    
+    window.addEventListener('click', (event) => {
+        if (event.target == modalPlantilla) cerrar();
+    });
+
+    if (radioSubirPlantillaModal) {
+        radioSubirPlantillaModal.addEventListener('change', function() {
+            plantillaModalUploadInput.style.display = this.checked ? 'block' : 'none';
+        });
     }
 
-    botonCancelarInformeModal.onclick = function() {
-        cerrarModal();
+    if (botonGenerarInformeModal) {
+        botonGenerarInformeModal.onclick = function() {
+            cerrar();
+            generarInformeDesdeModal();
+        };
     }
-
-    botonGenerarInformeModal.onclick = function() {
-        cerrarModal();
-        generarInformeDesdeModal();
-    };
 }
 
 function generarInformeDesdeModal() {
-    const plantillaSeleccionada = document.querySelector('input[name="plantillaModalSeleccion"]:checked').value;
+    const seleccion = document.querySelector('input[name="plantillaModalSeleccion"]:checked');
+    if (!seleccion) return;
+
+    const plantillaSeleccionada = seleccion.value;
     let plantillaPromise;
 
     if (plantillaSeleccionada === 'default') {
         plantillaPromise = fetch("./plantillas/Informe_TomaMedicionesIluminacion.docx")
             .then(response => {
-                if (!response.ok) throw new Error(`Error al cargar la plantilla: ${response.status} ${response.statusText}`);
+                if (!response.ok) throw new Error("No se encontró la plantilla.");
                 return response.arrayBuffer();
             });
-    } else if (plantillaSeleccionada === 'subir') {
-        const plantillaUploadInput = document.getElementById('plantillaModalUpload');
-        const archivoPlantilla = plantillaUploadInput.files[0];
-        if (!archivoPlantilla) {
-            alert("Por favor, seleccioná un archivo de plantilla.");
-            return;
-        }
-        plantillaPromise = new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = e => resolve(e.target.result);
-            reader.onerror = e => reject(`Error al leer el archivo: ${e}`);
-            reader.readAsArrayBuffer(archivoPlantilla);
-        });
     } else {
-        alert("Opción de plantilla no válida.");
-        return;
+        const fileInput = document.getElementById('plantillaModalUpload');
+        const archivo = fileInput.files[0];
+        if (!archivo) { alert("Seleccioná un archivo .docx"); return; }
+        plantillaPromise = archivo.arrayBuffer();
     }
 
     plantillaPromise.then(data => {
-        let zip;
-        try {
-            zip = new JSZip(data);
-        } catch (error) {
-            console.error("Error al cargar el ZIP:", error);
-            alert("Error al procesar la plantilla Word.");
-            return;
-        }
-
-        let doc = new window.docxtemplater().loadZip(zip);
+        const zip = new JSZip(data);
+        const doc = new window.docxtemplater().loadZip(zip);
         const valores = obtenerValoresInforme();
+        
         doc.setData(valores);
+        doc.render();
 
-        try {
-            doc.render();
-            const lugar = valores.lugar || "Informe";
-            let out = doc.getZip().generate({ type: "blob" });
-            saveAs(out, `Informe_Iluminacion_${lugar}.docx`);
-        } catch (error) {
-            console.error("Error generando el documento:", error);
-            alert("Hubo un error al generar el informe.");
-        }
-    }).catch(error => {
-        console.error("Error cargando la plantilla:", error);
-        alert("No se pudo cargar la plantilla del informe.");
-    });
+        const out = doc.getZip().generate({ type: "blob" });
+        const nombreArchivo = `Informe_Iluminacion_${valores.lugar || 'VISP'}.docx`;
+        saveAs(out, nombreArchivo);
+    }).catch(err => { console.error(err); alert("Error al procesar el Word."); });
 }
-
-// Event listeners para el Modal de informe Word
-document.addEventListener('DOMContentLoaded', () => {
-    const modalPlantilla = document.getElementById('modalPlantilla');
-    const botonInformeBo = document.getElementById('boton-informeBo');
-    const spanCerrarModalPlantilla = document.getElementById('cerrarModalPlantilla');
-    const botonGenerarInformeModal = document.getElementById('boton-generarInformeModal');
-    const botonCancelarInformeModal = document.getElementById('boton-cancelarInformeModal');
-    const radioSubirPlantillaModal = document.querySelector('input[name="plantillaModalSeleccion"][value="subir"]');
-    const plantillaModalUploadInput = document.getElementById('plantillaModalUpload');
-
-    botonInformeBo.onclick = function() {
-        if (typeof validarCamposInforme === "function" && !validarCamposInforme()) return;
-        abrirModalPlantilla();
-    };
-
-    spanCerrarModalPlantilla.onclick = function() {
-        modalPlantilla.style.display = "none";
-    };
-
-    botonCancelarInformeModal.onclick = function() {
-        modalPlantilla.style.display = "none";
-    };
-
-    botonGenerarInformeModal.onclick = generarInformeDesdeModal;
-
-    window.onclick = function(event) {
-        if (event.target == modalPlantilla) {
-            modalPlantilla.style.display = "none";
-        }
-    }
-
-    radioSubirPlantillaModal.addEventListener('change', function() {
-        plantillaModalUploadInput.style.display = this.checked ? 'block' : 'none';
-    });
-});
-
-// Inicializar modal de informe
-informeResultado();
-
-// ================================================================
-// 2. MODAL MAIL
-// ================================================================
 
 function inicializarModalMail() {
     const modalMail = document.getElementById('modalMail');
@@ -142,96 +91,49 @@ function inicializarModalMail() {
 
     if (botonMailSeccion) {
         botonMailSeccion.onclick = function() {
+            if (!navigator.onLine) {
+                alert("⚠️ Sin conexión — El mail requiere internet.");
+                return;
+            }
             if (typeof validarCamposInforme === "function" && !validarCamposInforme()) return;
             modalMail.style.display = "block";
         };
     }
 
-    if (spanCerrarModalMail) {
-        spanCerrarModalMail.onclick = function() {
-            modalMail.style.display = "none";
-        };
-    }
-
-    if (botonCancelarModalMail) {
-        botonCancelarModalMail.onclick = function() {
-            modalMail.style.display = "none";
-        };
-    }
-
-    window.addEventListener('click', function(event) {
-        if (event.target == modalMail) {
-            modalMail.style.display = "none";
-        }
-    });
+    const cerrarMail = () => { modalMail.style.display = "none"; };
+    if (spanCerrarModalMail) spanCerrarModalMail.onclick = cerrarMail;
+    if (botonCancelarModalMail) botonCancelarModalMail.onclick = cerrarMail;
 
     if (radioSubirPlantillaMailModal) {
         radioSubirPlantillaMailModal.addEventListener('change', function() {
-            if (plantillaMailUploadInput) plantillaMailUploadInput.style.display = this.checked ? 'block' : 'none';
+            plantillaMailUploadInput.style.display = this.checked ? 'block' : 'none';
         });
-        const radioDefaultMail = document.querySelector('input[name="plantillaMailSeleccion"][value="default"]');
-        if (radioDefaultMail) {
-            radioDefaultMail.addEventListener('change', function() {
-                if (plantillaMailUploadInput) plantillaMailUploadInput.style.display = 'none';
-            });
-        }
     }
 
     if (botonEnviarModalMail) {
-        botonEnviarModalMail.onclick = function() {
-            enviarMail();
-        };
+        botonEnviarModalMail.onclick = enviarMail;
     }
 }
-
-// Inicializar modal de mail
-document.addEventListener('DOMContentLoaded', () => {
-    inicializarModalMail();
-});
-
-// ================================================================
-// 3. FUNCIÓN PRINCIPAL DE ENVÍO POR MAIL
-// ================================================================
 
 async function enviarMail() {
     const emailInput = document.getElementById('mailDestinatario');
     const email = emailInput ? emailInput.value.trim() : '';
-
-    if (!email) {
-        alert("Debe ingresar una dirección de correo destinataria.");
-        if (emailInput) emailInput.focus();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert("Ingresá un correo válido.");
         return;
     }
 
-    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!regexEmail.test(email)) {
-        alert("La dirección de correo no es válida.");
-        if (emailInput) emailInput.focus();
-        return;
-    }
-
-    const plantillaSeleccionada = document.querySelector('input[name="plantillaMailSeleccion"]:checked').value;
+    const seleccion = document.querySelector('input[name="plantillaMailSeleccion"]:checked');
+    if (!seleccion) return;
+    const plantillaSeleccionada = seleccion.value;
     let plantillaPromise;
 
     if (plantillaSeleccionada === 'default') {
-        plantillaPromise = fetch("./plantillas/Informe_TomaMedicionesIluminacion.docx")
-            .then(response => {
-                if (!response.ok) throw new Error(`Error al cargar plantilla: ${response.status}`);
-                return response.arrayBuffer();
-            });
-    } else if (plantillaSeleccionada === 'subir') {
-        const plantillaUploadInput = document.getElementById('plantillaMailUpload');
-        const archivoPlantilla = plantillaUploadInput.files[0];
-        if (!archivoPlantilla) {
-            alert("Por favor, seleccioná un archivo de plantilla.");
-            return;
-        }
-        plantillaPromise = new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = e => resolve(e.target.result);
-            reader.onerror = e => reject(`Error al leer plantilla: ${e}`);
-            reader.readAsArrayBuffer(archivoPlantilla);
-        });
+        plantillaPromise = fetch("./plantillas/Informe_TomaMedicionesIluminacion.docx").then(res => res.arrayBuffer());
+    } else {
+        const file = document.getElementById('plantillaMailUpload').files[0];
+        if (!file) { alert("Subí una plantilla."); return; }
+        plantillaPromise = file.arrayBuffer();
     }
 
     document.getElementById('modalMail').style.display = "none";
@@ -240,10 +142,9 @@ async function enviarMail() {
     try {
         const data = await plantillaPromise;
         const zip = new JSZip(data);
-        let doc = new window.docxtemplater().loadZip(zip);
-
-        const valores = obtenerValoresInforme();
-        doc.setData(valores);
+        const doc = new window.docxtemplater().loadZip(zip);
+        const v = obtenerValoresInforme();
+        doc.setData(v);
         doc.render();
 
         const docxBase64 = doc.getZip().generate({ type: "base64" });
@@ -251,33 +152,36 @@ async function enviarMail() {
         // Fotos
         let fotoCroquisBase64 = null;
         let fotoLocalBase64 = null;
+        if (typeof fotoCroquis !== 'undefined' && fotoCroquis) fotoCroquisBase64 = await fileToBase64(fotoCroquis);
+        if (typeof fotoLocal !== 'undefined' && fotoLocal) fotoLocalBase64 = await fileToBase64(fotoLocal);
 
-        if (typeof fotoCroquis !== 'undefined' && fotoCroquis) {
-            fotoCroquisBase64 = await fileToBase64(fotoCroquis);
-        }
-        if (typeof fotoLocal !== 'undefined' && fotoLocal) {
-            fotoLocalBase64 = await fileToBase64(fotoLocal);
-        }
+        // Armamos el cuerpo del mail aquí para el PHP
+        const cuerpoMail = 
+            `RESULTADO MEDICION DE ILUMINACIÓN\n` +
+            `================================\n\n` +
+            `Fecha: ${v.fecha}   Hora: ${v.hora}\n` +
+            `Lugar: ${v.lugar}\n` +
+            `Operador: ${v.operador}\n\n` +
+            `Nivel requerido: ${v.requerido} lux\n` +
+            `Emedio: ${v.emedio} lux\n` +
+            `Eminimo: ${v.minimo} lux\n\n` +
+            `Iluminacion general: ${v.ilumGeneral}\n` +
+            `Uniformidad: ${v.uniformidad}\n\n` +
+            `---\nEnviado desde VISP Herramientas — higseg.ar`;
 
-        // Enviar al servidor PHP
         const response = await fetch('/api/enviar_mail.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                destinatario:  email,
-                lugar:         valores.lugar,
-                operador:      valores.operador,
-                fecha:         valores.fecha,
-                hora:          valores.hora,
-                emedio:        valores.emedio,
-                minimo:        valores.minimo,
-                ilumGeneral:   valores.ilumGeneral,
-                uniformidad:   valores.uniformidad,
-                requerido:     valores.nivelIluminacionRequerido,
-                docx:          docxBase64,
-                fotoCroquis:   fotoCroquisBase64,
-                fotoLocal:     fotoLocalBase64,
-                website:       "" // honeypot — requerido por enviar_mail.php
+                destinatario: email,
+                lugar: v.lugar,
+                asunto: `Medición de Iluminación — ${v.lugar || 'VISP'}`,
+                cuerpo: cuerpoMail,
+                docx: docxBase64,
+                nombreDocx: `Informe_Iluminacion_${v.lugar || 'VISP'}.docx`,
+                fotoCroquis: fotoCroquisBase64,
+                fotoLocal: fotoLocalBase64,
+                website: "" // Honeypot
             })
         });
 
@@ -285,21 +189,16 @@ async function enviarMail() {
         ocultarEstado();
 
         if (resultado.ok) {
-            alert("Mail enviado correctamente a " + email);
+            alert("✅ Mail enviado con éxito!");
         } else {
-            alert("Error al enviar el mail: " + (resultado.error || "error desconocido"));
+            alert("❌ Error al enviar el mail.");
         }
 
     } catch (error) {
         ocultarEstado();
-        console.error("Error enviando mail:", error);
-        alert("Hubo un error al generar o enviar el informe.");
+        alert("❌ Error al generar el informe.");
     }
 }
-
-// ================================================================
-// 4. FUNCIÓN CENTRALIZADA DE VALORES DEL INFORME
-// ================================================================
 
 function obtenerValoresInforme() {
     const ahora = new Date();
@@ -307,43 +206,34 @@ function obtenerValoresInforme() {
     const hora  = ahora.toLocaleTimeString("es-AR", {hour:"2-digit", minute:"2-digit", hour12:false});
 
     const valores = {
-        lugar:                     document.getElementById("lugar")?.value.trim() || "",
-        operador:                  document.getElementById("operador")?.value.trim() || "",
+        lugar:       document.getElementById("lugar")?.value.trim() || "",
+        operador:    document.getElementById("operador")?.value.trim() || "",
         fecha,
         hora,
-        fechaHora:                 fecha + " " + hora,
-        nivelIluminacionRequerido: document.getElementById("nivel-iluminacion-requerido")?.value || "",
-        requerido:                 document.getElementById("nivel-iluminacion-requerido")?.value || "",
-        nroMediciones:             document.getElementById("nroMediciones")?.textContent || "",
-        emedio:                    document.getElementById("emedio")?.textContent || "",
-        minimo:                    document.getElementById("minimo")?.textContent || "",
-        ilumGeneral:               document.getElementById("ilum-general")?.textContent || "",
-        uniformidad:               document.getElementById("uniformidad")?.textContent || "",
-        altura:                    sessionStorage.getItem('luminaria') || "",
-        largo:                     sessionStorage.getItem('largo') || "",
-        ancho:                     sessionStorage.getItem('ancho') || "",
-        numeroPuntos:              sessionStorage.getItem('fraseResultado')?.split(':')[1]?.trim() || "",
-        indiceLocalAdoptado:       sessionStorage.getItem('indiceLocalAdoptado') || ""
+        emedio:      document.getElementById("emedio")?.textContent || "",
+        minimo:      document.getElementById("minimo")?.textContent || "",
+        ilumGeneral: document.getElementById("ilum-general")?.textContent || "",
+        uniformidad: document.getElementById("uniformidad")?.textContent || "",
+        requerido:   document.getElementById("nivel-iluminacion-requerido")?.value || ""
     };
 
-    // Puntos individuales de medición m1..m40
     for (let i = 1; i <= 40; i++) {
         const celda = document.getElementById(`m${i}`);
-        valores[`m${i}`] = celda ? celda.textContent.trim() : "";
+        let valorCelda = celda ? celda.textContent.trim() : "";
+        if (valorCelda !== "" && !isNaN(valorCelda)) {
+            valores[`m${i}`] = Math.round(parseFloat(valorCelda));
+        } else {
+            valores[`m${i}`] = valorCelda;
+        }
     }
-
     return valores;
 }
-
-// ================================================================
-// 5. UTILIDADES
-// ================================================================
 
 function fileToBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = e => resolve(e.target.result.split(',')[1]);
-        reader.onerror = e => reject(e);
+        reader.onerror = reject;
         reader.readAsDataURL(file);
     });
 }
@@ -359,3 +249,8 @@ function ocultarEstado() {
     if (el) el.style.display = "none";
     document.body.style.cursor = "default";
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    inicializarModalInforme();
+    inicializarModalMail();
+});

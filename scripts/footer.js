@@ -45,7 +45,7 @@
         <p class="text__modal">
           Aplicación web de código abierto para cálculos de higiene y seguridad laboral
           bajo normativa argentina.
-          Desarrollado por <strong>Ing. Jorge Mendoza</strong> — Versión 1.5 · 2026.
+          Desarrollado por <strong>Ing. Jorge Mendoza</strong> — Versión 1.5.2 · 2026.
           <a href="/LICENSE.html" target="_blank">Licencia MIT.</a>
         </p>
 

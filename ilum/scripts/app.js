@@ -340,12 +340,15 @@ function leerTabla() {
             document.getElementById("minimo").textContent = "";
             return;
         }
-        mediciones.push(parseFloat(valor));
+        // Redondeamos cada medición individual por si ingresan decimales por error
+        mediciones.push(Math.round(parseFloat(valor)));
     }
 
     let nroMediciones = mediciones.length;
-    let emedio = nroMediciones > 0 ? (mediciones.reduce((a, b) => a + b, 0) / nroMediciones).toFixed(1) : "0.0";
-    let minimo = nroMediciones > 0 ? Math.min(...mediciones).toFixed(1) : "0.0";
+
+    // --- CAMBIO AQUÍ: Usamos Math.round y valores enteros ---
+    let emedio = nroMediciones > 0 ? Math.round(mediciones.reduce((a, b) => a + b, 0) / nroMediciones) : 0;
+    let minimo = nroMediciones > 0 ? Math.round(Math.min(...mediciones)) : 0;
 
     document.getElementById("nroMediciones").textContent = nroMediciones;
     document.getElementById("emedio").textContent = emedio;
@@ -360,12 +363,15 @@ function leerTabla() {
         return;
     }
 
-    nivelIluminacionRequerido = parseFloat(document.getElementById('nivel-iluminacion-requerido').value);
+    // Redondeamos también el valor requerido de la legislación para una comparación limpia
+    nivelIluminacionRequerido = Math.round(parseFloat(document.getElementById('nivel-iluminacion-requerido').value));
+    
     if (isNaN(nivelIluminacionRequerido) || nivelIluminacionRequerido <= 0) {
         alert("Debe ingresar un valor de iluminación requerido para chequear el cumplimiento de la legislación");
         return;
     }
 
+    // Lógica de cumplimiento (ahora compara enteros)
     parrafo = document.getElementById("ilum-general");
     if (emedio < nivelIluminacionRequerido) {
         parrafo.style.color = "red";
@@ -378,6 +384,7 @@ function leerTabla() {
     sessionStorage.setItem("ilumGeneralColor", parrafo.style.color);
 
     parrafo = document.getElementById("uniformidad");
+    // Nota: emedio / 2 puede dar .5, pero al comparar con un 'minimo' entero, la lógica sigue siendo válida
     if (minimo < emedio / 2) {
         parrafo.style.color = "red";
         parrafo.textContent = "El nivel de uniformidad NO CUMPLE con la legislación vigente";
@@ -388,7 +395,6 @@ function leerTabla() {
     sessionStorage.setItem("uniformidadText", parrafo.textContent);
     sessionStorage.setItem("uniformidadColor", parrafo.style.color);
 
-    // Mostrar sección ENVIAR al calcular
     mostrarSeccionEnviar();
 }
 

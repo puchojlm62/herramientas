@@ -156,6 +156,10 @@ function calcularTodo() {
 
     sessionStorage.setItem("bo_indiceProteccionClase", elIndice.className);
     guardarEnSessionStorageBandasOctava(); // Guardar al calcular
+
+    // Mostrar sección ENVIAR al calcular
+    const seccionEnviar = document.getElementById("seccion-enviar-atenua");
+    if (seccionEnviar) seccionEnviar.style.display = "block";
 }
 
 function borrarTodoBo() {
@@ -186,6 +190,10 @@ function borrarTodoBo() {
             sessionStorage.removeItem(key);
         }
     });
+
+    // Ocultar sección ENVIAR al borrar
+    const seccionEnviar = document.getElementById("seccion-enviar-atenua");
+    if (seccionEnviar) seccionEnviar.style.display = "none";
 }
 
 const checkbox = document.getElementById("cbox2");

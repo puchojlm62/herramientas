@@ -1,14 +1,15 @@
 <h1 align="center"> CALCULADORAS PARA HIGIENE</h1>
 <p align="left">
    <img src="https://img.shields.io/badge/STATUS-EN DESARROLLO-blue">
-   <img src="https://img.shields.io/badge/VERSI%C3%93N-1.5.0-blue">
+   <img src="https://img.shields.io/badge/VERSI%C3%93N-1.5.2-blue">
 </p>
 
 # Objetivo
   Desarrollar diferentes calculadoras para usarlas en determinaciones de higiene en el ambiente laboral bajo normativa argentina.
 
 # Descripción del Proyecto
-  Esta aplicación utiliza HTML, CSS y JavaScript con un diseño intuitivo y responsivo. Permite realizar cálculos higiénicos, visualizar resultados y generar informes en formato Word (.docx) con plantilla predeterminada o personalizada por el usuario.
+  Esta aplicación utiliza HTML, CSS y JavaScript con un diseño intuitivo y responsivo. Permite realizar cálculos higiénicos, visualizar resultados y generar informes en formato Word (.docx) con plantilla predeterminada o personalizada por el usuario.  
+  Funciona como PWA (Progressive Web App): instalable en dispositivos móviles y de escritorio, con soporte offline mediante Service Worker.
 
 # Herramientas disponibles
 - **Medición de Iluminación** — Cálculo de Emedio, uniformidad y cumplimiento según legislación vigente
@@ -21,6 +22,26 @@
 ---
 
 # Historial de versiones
+
+## v1.5.2 - 2026
+- Extendidos botones **WhatsApp** y **Mail** a `/atenua`: disponibles en los tres métodos (Bandas de Octava, HML y SNR)
+- Modificación de enviar_mail.php, informe.js y informe_atenua.js para recibir de atenua y ilum, y preparado para enviar datos de otros herramientas
+- Usar redondeo en presentación resultados de iluminación para ajustar cifras significativas por la presición 1 Lux de los instrumentos de medida comunes de campo
+- Nuevo script `informe_atenua.js`: centraliza la lógica de compartir para los tres métodos de atenuación
+- Mensaje WhatsApp adaptado por método: incluye protector auditivo, lugar, LeqA en el oído e índice de protección
+- Mismo comportamiento de detección offline que `/ilum`: `try/catch` separado en el `fetch`, tres mensajes diferenciados (sin conexión cliente / sin conexión servidor OCI / error genérico)
+- Actualizado `sw.js` a `visp-app-v1.5.2-cache`: agrega `informe_atenua.js` al precache
+- Corrección de bug en metodo hml de no funcionamiento botón calcular 
+
+## v1.5.1 - 2026
+- Implementado **Service Worker** (`sw.js`): la aplicación funciona como PWA instalable con soporte offline completo
+- Agregado `manifest.json` con íconos PWA (180px, 192px, 512px) para instalación en Android, iOS y escritorio
+- Botón **WhatsApp** en `/ilum`: comparte el resumen del resultado directamente desde el celular
+- Botón **Mail** en `/ilum` conectado y funcional: genera el informe Word y lo envía como adjunto vía OCI Email Delivery (PHPMailer)
+- Detección de conexión en el cliente: si no hay internet al intentar enviar mail, se muestra aviso inmediato sin intentar el envío
+- Detección de fallo SMTP en el servidor: `enviar_mail.php` devuelve `sin_conexion: true` cuando PHPMailer no puede conectar al relay de OCI, permitiendo al cliente mostrar un mensaje específico
+- Conversión de imágenes adjuntas a WebP para reducir peso en el envío por mail
+- Integración con **OCI Email Delivery** como relay SMTP (decisión de arquitectura por cumplimiento con Ley 25.326)
 
 ## v1.5.0 - 2026
 - Reemplazada imagen estática de fórmulas en Puntos de medición por renderizado dinámico con **KaTeX**
@@ -41,18 +62,16 @@
 - Unificada indentación y formato en `general.css` y `styles1.css` de iluminación
 
 ## v1.3.0 - 2026
-- Agregado botón **Compartir por WhatsApp** en Medición de Iluminación: permite enviar el resultado directamente desde el celular al finalizar el cálculo
-- Agregado link de descarga **Referencia de marcadores** en el modal de generación de informe: guía completa de marcadores disponibles para plantillas personalizadas, incluyendo valores calculados intermedios
-- El botón de compartir se muestra automáticamente al calcular y se oculta al borrar los datos
-- Agregados campos **Lugar de medición** y **Operador** en Mediciones: se incorporan al informe descargable
-- Corregido formato de hora en informe: ahora usa formato 24h (`21:58` en lugar de `09:58 p. m.`)
-- Mejoras visuales en layout desktop y móvil: corregidas superposiciones entre inputs y tabla, y separación correcta respecto al footer
-
+- Agregado botón **Compartir por WhatsApp** en Medición de Iluminación
+- Agregado link de descarga **Referencia de marcadores** en el modal de generación de informe
+- Agregados campos **Lugar de medición** y **Operador** en Mediciones
+- Corregido formato de hora en informe: formato 24h
+- Mejoras visuales en layout desktop y móvil
 
 ## v1.2.0 - 2025
 - Generación de informes Word con plantilla predeterminada o plantilla personalizada subida por el usuario
 - Soporte para placeholders de valores calculados intermedios en plantillas personalizadas
-- Persistencia de datos con sessionStorage para evitar pérdida de datos al navegar entre páginas
+- Persistencia de datos con sessionStorage
 
 ## v1.1.0 - 2025
 - Incorporación de herramienta de Atenuación de Protectores Auditivos (métodos SNR, HML y Bandas de Octava)

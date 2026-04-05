@@ -18,6 +18,14 @@
 	</script>
     <meta name="description" content="Verifica la atenuacion de protectores auditivos para tu puesto de trabajo. Metodos SNR, HML y Bandas de Octava. Normativa argentina.">
     <link rel="canonical" href="https://higseg.ar/atenua/">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#007bff">
+<link rel="apple-touch-icon" href="../img/favicon.webp">
+<link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/icon-180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="VispApp">
 </head>
 <body>
      
@@ -150,6 +158,20 @@
      <!-- Pie de página -->
 	<script src="/scripts/footer.js"></script>
 
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      // Detecta si estamos en una subcarpeta para ajustar la ruta al sw.js en la raíz
+      const isSubfolder = window.location.pathname.includes('/ilum/') || 
+                          window.location.pathname.includes('/atenua/');
+      const swPath = isSubfolder ? '../sw.js' : './sw.js';
+      
+      navigator.serviceWorker.register(swPath)
+        .then(reg => console.log('VispApp: SW registrado con éxito desde ' + swPath))
+        .catch(err => console.error('VispApp: Error al registrar SW', err));
+    });
+  }
+</script>
 </body>
 </html>
 

@@ -45,6 +45,10 @@ function calcularTodoSNR() {
     sessionStorage.setItem("snr_dbA_protegido", dbA_protegido_fixed);
     sessionStorage.setItem("snr_indiceProteccion", indiceProteccion);
     sessionStorage.setItem("snr_indiceProteccionClase", elIndice.className);
+
+    // Mostrar sección ENVIAR al calcular
+    const seccionEnviar = document.getElementById("seccion-enviar-atenua");
+    if (seccionEnviar) seccionEnviar.style.display = "block";
 }
 
 function borrarTodoSNR() {
@@ -70,6 +74,10 @@ function borrarTodoSNR() {
     sessionStorage.removeItem("snr_dbA_protegido");
     sessionStorage.removeItem("snr_indiceProteccion");
     sessionStorage.removeItem("snr_indiceProteccionClase");
+
+    // Ocultar sección ENVIAR al borrar
+    const seccionEnviar = document.getElementById("seccion-enviar-atenua");
+    if (seccionEnviar) seccionEnviar.style.display = "none";
 }
 
 const checkbox = document.getElementById("cbox3");
