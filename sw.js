@@ -1,5 +1,5 @@
 /* Service Worker VispApp v1.5.2 
-   Optimizado para funcionamiento Offline y Generación de Informes
+   Optimizado para funcionamiento Offline y GeneraciÃ³n de Informes
    Optimizado con Rutas Absolutas
 */
 
@@ -25,12 +25,12 @@ const assetsToCache = [
   '/scripts/script.js',
   '/scripts/footer.js',
   
-  // Librerías externas
+  // LibrerÃ­as externas
   '/lib/jszip.min.js',
   '/lib/docxtemplater.min.js',
   '/lib/FileSaver.min.js',
   
-  // Imágenes e Iconos principales
+  // ImÃ¡genes e Iconos principales
   '/img/Logo_Visp.webp',
   '/img/logoISP65.webp',
   '/img/favicon.webp',
@@ -42,7 +42,7 @@ const assetsToCache = [
   '/img/mail.svg',
   '/img/wa.webp',
 
-  // --- MÓDULO ILUMINACIÓN ---
+  // --- MÃ“DULO ILUMINACIÃ“N ---
   '/ilum/index.html',
   '/ilum/puntosmedicion.html',
   '/ilum/mediciones.html',
@@ -65,7 +65,7 @@ const assetsToCache = [
   '/ilum/plantillas/Informe_TomaMedicionesIluminacion.docx',
   '/ilum/plantillas/Referencia_Marcadores.docx',
 
-  // --- MÓDULO ATENUACIÓN DE RUIDOS ---
+  // --- MÃ“DULO ATENUACIÃ“N DE RUIDOS ---
   '/atenua/index.html',
   '/atenua/bandasoctava.html',
   '/atenua/hml.html',
@@ -86,36 +86,50 @@ const assetsToCache = [
   '/atenua/plantillas/Informe_atenuaSNR.docx'
 ];
 
+// 1. InstalaciÃ³n
 // 1. Instalación
 self.addEventListener('install', event => {
+  self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('VispApp: Cacheando archivos con rutas absolutas...');
-        return cache.addAll(assetsToCache);
-      })
-  );
-});
-
-// 2. Activación (Limpieza de versiones viejas)
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            console.log('VispApp: Borrando caché antiguo...');
-            return caches.delete(cache);
-          }
-        })
+    caches.open(CACHE_NAME).then(cache => {
+      console.log('VispApp: Cacheando archivos...');
+      // Promise.allSettled en lugar de addAll
+      // Si un archivo falla, el install continúa igual
+      return Promise.allSettled(
+        assetsToCache.map(url =>
+          cache.add(url).catch(err =>
+            console.warn('VispApp: No se pudo cachear:', url, err)
+          )
+        )
       );
     })
   );
 });
 
+// 2. ActivaciÃ³n (Limpieza de versiones viejas)
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    Promise.all([
+      // Toma control inmediato de todas las pestañas
+      clients.claim(),
+      // Borra cachés viejos
+      caches.keys().then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cache => {
+            if (cache !== CACHE_NAME) {
+              console.log('VispApp: Borrando caché antiguo...');
+              return caches.delete(cache);
+            }
+          })
+        );
+      })
+    ])
+  );
+});
+
 // 3. Estrategia de Fetch (Cache First, luego Network)
 self.addEventListener('fetch', event => {
-  // Excluir la API de correos (PHPMailer requiere conexión)
+  // Excluir la API de correos (PHPMailer requiere conexiÃ³n)
   if (event.request.url.includes('/api/')) {
     return;
   }
