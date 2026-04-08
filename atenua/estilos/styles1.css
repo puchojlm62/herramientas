@@ -442,3 +442,17 @@ input {
 
 
 
+
+/* === Sección ENVIAR: layout centrado igual que ilum/mediciones === */
+#seccion-enviar-atenua {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  #seccion-enviar-atenua .button-draw {
+    width: 80%;
+    margin: 0.5rem 0;
+  }
+}

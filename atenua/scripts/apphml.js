@@ -80,7 +80,7 @@ function calcularTodoHML() {
 
     // 8. Mostrar sección de envío (WhatsApp/Mail)
     const seccionEnviar = document.getElementById("seccion-enviar-atenua");
-    if (seccionEnviar) seccionEnviar.style.display = "block";
+    if (seccionEnviar) seccionEnviar.style.display = "flex";
 }
 
 function borrarTodoHML() {
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const resPrevio = sessionStorage.getItem("hml_dbA_protegido");
         if (resPrevio) {
             document.querySelector("#filaRuidoAtenuadoHML input").value = resPrevio;
-            document.getElementById("seccion-enviar-atenua").style.display = "block";
+            document.getElementById("seccion-enviar-atenua").style.display = "flex";
         }
 
         const elIndice = document.getElementById("indice-proteccionHML");

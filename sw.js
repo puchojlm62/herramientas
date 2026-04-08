@@ -3,7 +3,7 @@
    Optimizado con Rutas Absolutas
 */
 
-const CACHE_NAME = 'visp-app-v1.5.2-cache';
+const CACHE_NAME = 'visp-app-v1.5.3-cache';
 
 // Lista completa de recursos con rutas absolutas (empiezan con /)
 const assetsToCache = [

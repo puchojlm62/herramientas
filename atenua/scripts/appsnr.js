@@ -48,7 +48,7 @@ function calcularTodoSNR() {
 
     // Mostrar sección ENVIAR al calcular
     const seccionEnviar = document.getElementById("seccion-enviar-atenua");
-    if (seccionEnviar) seccionEnviar.style.display = "block";
+    if (seccionEnviar) seccionEnviar.style.display = "flex";
 }
 
 function borrarTodoSNR() {
